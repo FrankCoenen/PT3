@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/ProftaakPong/src/Interfaces/game/IGame.java</file>
+            <file>file:/C:/ProftaakPong/src/Interfaces/game/ILobby.java</file>
+            <file>file:/C:/ProftaakPong/src/Domain/game/GameLobby.java</file>
+            <file>file:/C:/ProftaakPong/src/Domain/game/Lobby.java</file>
+            <file>file:/C:/ProftaakPong/src/proftaakpong/Game.java</file>
+            <file>file:/C:/ProftaakPong/src/Domain/game/LineSide.java</file>
+            <file>file:/C:/ProftaakPong/src/proftaakpong/ProftaakPong.java</file>
+            <file>file:/C:/ProftaakPong/src/Domain/game/Persoon.java</file>
+            <file>file:/C:/ProftaakPong/src/proftaakpong/LobbyFXController.java</file>
+            <file>file:/C:/ProftaakPong/src/Domain/game/ChatBericht.java</file>
+            <file>file:/C:/ProftaakPong/src/Domain/game/ChatBox.java</file>
+            <file>file:/C:/ProftaakPong/src/Interfaces/game/ILineSide.java</file>
+        </group>
+    </open-files>
+</project-private>
