@@ -18,4 +18,5 @@ public interface ILobbySignedIn {
     public void sendChat(String bericht);
     public RemotePublisher CreateGame();
     public RemotePublisher JoinGame();
+    public IGame spectateGame();
 }
