@@ -6,10 +6,6 @@
 
 package proftaakpong;
 
-import Domain.game.Speelveld;
-import Domain.game.AI;
-import Domain.game.Speler;
-import Domain.game.Batje;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
