@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/ProftaakPong_Server/src/proftaakpong_server/ProftaakPong_Server.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/ProftaakPong_Server/src/interfaces/ILineGoal.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/ProftaakPong_Server/src/interfaces/ILobby.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/ProftaakPong_Server/src/proftaakpong_server/RMIServer.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/ProftaakPong_Server/src/interfaces/IGame.java</file>
-            <file>file:/C:/Users/Michael/Documents/NetBeansProjects/ProftaakPong_Server/src/interfaces/ILineSide.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

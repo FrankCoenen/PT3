@@ -7,12 +7,9 @@
 package server.components;
 
 
-import java.util.ArrayList;
 import shared.interfaces.IClient;
-import shared.interfaces.IGame;
 import shared.interfaces.ILobbyLogin;
 import shared.interfaces.ILobbySignedIn;
-import shared.observer.RemotePublisher;
 
 /**
  *
@@ -20,6 +17,23 @@ import shared.observer.RemotePublisher;
  */
 public class Lobby implements ILobbyLogin
 {
+    private static Lobby INSTANCE;
+    
+    
+    private Lobby()
+    {
+        
+    }
+    
+    public static Lobby getInstance()
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new Lobby();
+        }
+        
+        return INSTANCE;
+    }
 
     @Override
     public ILobbySignedIn login(IClient client, String naam, String wachtwoord) {
