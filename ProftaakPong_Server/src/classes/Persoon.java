@@ -6,11 +6,13 @@
 
 package classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Michael
  */
-public class Persoon 
+public class Persoon
 {
     protected String wachtwoord;
     protected String gebruikersNaam;

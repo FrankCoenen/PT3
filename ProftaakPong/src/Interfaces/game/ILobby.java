@@ -6,7 +6,6 @@
 
 package Interfaces.game;
 
-import Storage.game.DatabaseMediator;
 
 /**
  *
@@ -24,4 +23,5 @@ public interface ILobby
     boolean inloggen();
     void createChatBericht(String text, Persoon p);
     ChatBox getChatBox();
+    void setPersoonInApplicatie(Persoon p);
 }

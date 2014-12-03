@@ -18,7 +18,7 @@ public class GameLobby
     private Speler[] spelers;
     private AI[] ai;
     private Toeschouwer[] toeschouwers;
-    //private Game game;
+    private Game game;
     
     public GameLobby(String naam, GameEigenaar gameeigenaar)
     {
@@ -28,10 +28,10 @@ public class GameLobby
         ai = new AI[2];
     }
     
-//    public Game getGame()
-//    {
-//        return this.game;
-//    }
+    public Game getGame()
+    {
+        return this.game;
+    }
     
     public String getNaam()
     {

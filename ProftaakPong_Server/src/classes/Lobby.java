@@ -7,13 +7,19 @@
 package classes;
 
 import database.DatabaseMediator;
+import interfaces.IClient;
+import interfaces.IGame;
+import interfaces.IGameLobby;
+import interfaces.ILobby;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
  *
  * @author Michael
  */
-public class Lobby 
+public class Lobby extends UnicastRemoteObject implements ILobby
 {
     private ChatBox chatbox;
     private ArrayList<Persoon> ingelogden;
@@ -22,60 +28,82 @@ public class Lobby
     private ArrayList<GameLobby> gamelobbies;
     private GameLobby joinedgamelobby;
     
-    public Lobby(Persoon persooninapplicatie)
+    public Lobby(Persoon persooninapplicatie) throws RemoteException
     {
         this.persooninapplicatie = persooninapplicatie;
         gamelobbies = new ArrayList<>();
         this.chatbox = new ChatBox();
     }
     
-    public Lobby()
+    public Lobby() throws RemoteException
     {
         
     }
     
-    public GameLobby getActiveGameLobby()
+    @Override
+    public IGameLobby getActiveGameLobby()
     {
-        return this.joinedgamelobby;
+        return (IGameLobby)this.joinedgamelobby;
     }
     
+    @Override
     public DatabaseMediator getDatabase()
     {
         return this.database;
     }
     
+    @Override
     public void setDatabase(DatabaseMediator database)
     {
         this.database = database;
     }
     
-    public void createGame()
+    @Override
+    public IGame createGame()
     {
         GameLobby newgame = new GameLobby(persooninapplicatie.getGebruikersnaam() + " :Game", persooninapplicatie.omzettenSpeler().omzettenSpelEigenaar());
         gamelobbies.add(newgame);
         this.joinGame(newgame);
+        
+        IGame game = (IGame)newgame.getGame();
+        
+        return game;
     }
     
-    public void startGame()
+    @Override
+    public IGame startGame()
     {
+        IGame game = (IGame)joinedgamelobby.getGame();
         joinedgamelobby.startGame();
+        return game;
     }
     
-    public void joinGame(GameLobby gamelobby)
+    @Override
+    public IGame joinGame(GameLobby gamelobby)
     {
         joinedgamelobby = gamelobby;
+        IGame game = (IGame)joinedgamelobby.getGame();
+        
+        return game;
     }
     
-    public void spectateGame()
+    @Override
+    public IGame spectateGame(GameLobby gamelobby)
     {
-        Toeschouwer spectater = persooninapplicatie.omzettenToeschouwer();
+        joinedgamelobby = gamelobby;
+        IGame game = (IGame)joinedgamelobby.getGame();
+        Toeschouwer spectator = persooninapplicatie.omzettenToeschouwer();
+        
+        return game;
     }
     
-    public boolean inloggen()
+    @Override
+    public IClient inloggen()
     {
-        return false;
+        return null;
     }
     
+    @Override
     public void createChatBericht(String text, Persoon p)
     {
         ChatBericht bericht = new ChatBericht(text, p);
@@ -85,8 +113,15 @@ public class Lobby
         System.out.println("List Count: " + this.chatbox.getListCount());
     }
     
+    @Override
     public ChatBox getChatBox()
     {
         return this.chatbox;
+    }
+    
+    @Override
+    public IClient setPersoonInApplicatie(Persoon p)
+    {
+        return null;
     }
 }

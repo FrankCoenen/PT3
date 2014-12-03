@@ -10,6 +10,7 @@ import Storage.game.DatabaseMediator;
 import com.sun.prism.paint.Color;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.event.Event;
@@ -38,6 +39,8 @@ public class LoginFXController implements Initializable {
     private Stage stage;
     private Scene currentscene;
     private Stage currentstage;
+    
+    private Registry registry;
 
     //INLOGGUI FXML
     @FXML

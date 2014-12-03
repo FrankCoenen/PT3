@@ -8,20 +8,21 @@ package interfaces;
 
 import classes.Speelveld;
 import classes.Speler;
+import java.rmi.Remote;
 
 
 /**
  *
  * @author Michael
  */
-public interface IGame 
+public interface IGame extends Remote
 {
-    void addAI();
-    void resetBal();
-    void startGame();
-    void stopBatje();
-    void moveBatjeRight();
-    void moveBatjeLeft();
+    IGame addAI();
+    IGame resetBal();
+    IGame startGame();
+    IGame stopBatje();
+    IGame moveBatjeRight();
+    IGame moveBatjeLeft();
     String getHoogsteScore();
     Speler[] getSpelers();
     Speelveld getSpeelveld();

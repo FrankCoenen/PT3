@@ -11,8 +11,13 @@ import Domain.game.GameEigenaar;
 import Domain.game.GameLobby;
 import Domain.game.Lobby;
 import Domain.game.Persoon;
+import Interfaces.game.ILobby;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -67,18 +72,38 @@ public class LobbyFXController implements Initializable {
     
     private String username;
     
-    private Lobby lobby;
+    private ILobby lobby;
     
     private Persoon persooninapplicatie;
+    
+    private Registry registry;
     
     public void setData(Persoon p)
     {
         text_loggedin.setText("Logged in as: " + p.getGebruikersnaam());
         lbl_playername.setText(p.getGebruikersnaam());
         System.out.println(p.getGebruikersnaam());
-        this.lobby = new Lobby(p);
+        this.lobby = new Lobby();
         persooninapplicatie = p;
-        btn_startgame.setVisible(false);  
+        btn_startgame.setVisible(false); 
+        
+        //Verbinding maken met Registry
+        try
+        {
+            registry = LocateRegistry.getRegistry("localhost", 1099);
+        }
+        catch(RemoteException e)
+        {
+                     
+        }
+        try
+        {
+            lobby = (ILobby)registry.lookup("bindingNameLobby");
+        }
+        catch(NotBoundException | RemoteException e)
+        {
+                         
+        }  
     }
     
     @Override

@@ -10,21 +10,25 @@ import classes.ChatBox;
 import classes.GameLobby;
 import classes.Persoon;
 import database.DatabaseMediator;
+import java.rmi.Remote;
 
 /**
  *
  * @author Michael
  */
-public interface ILobby 
+public interface ILobby extends Remote
 {
-    GameLobby getActiveGameLobby();
+    IGameLobby getActiveGameLobby();
     DatabaseMediator getDatabase();
     void setDatabase(DatabaseMediator database);
-    void createGame();
-    void startGame();
-    void joinGame(GameLobby gamelobby);
-    void spectateGame();
-    boolean inloggen();
+    
+    //Create gamelobby object
+    IGame createGame();
+    IGame startGame();
+    IGame joinGame(GameLobby gamelobby);
+    IGame spectateGame(GameLobby gamelobby);
+    IClient inloggen();
     void createChatBericht(String text, Persoon p);
     ChatBox getChatBox();
+    IClient setPersoonInApplicatie(Persoon p);
 }
