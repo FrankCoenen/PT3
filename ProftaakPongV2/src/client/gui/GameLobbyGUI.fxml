@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proftaakpong.LobbyFXController">
+   <left>
+      <SplitPane dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+         <items>
+            <Label id="lbl_playername" fx:id="lbl_playername" text="Player Name" />
+            <Label id="lbl_chat" text="Chat" />
+            <ListView fx:id="list_chatbox" prefHeight="200.0" prefWidth="200.0" />
+            <ChoiceBox id="cb_onbekend" prefWidth="150.0" />
+            <TextField id="tf_chatbericht" fx:id="tf_chatbericht" />
+            <Button id="btn_chatberichtsend" fx:id="btn_chatberichtsend" mnemonicParsing="false" onMouseClicked="#plaatsChatBericht" text="Send" />
+         </items>
+      </SplitPane>
+   </left>
+   <top>
+      <MenuBar id="lobby_menubar" BorderPane.alignment="CENTER">
+         <menus>
+            <Menu id="menu_game" mnemonicParsing="false" text="Game">
+              <items>
+                  <MenuItem id="menuitem_logout" mnemonicParsing="false" text="LogOut" />
+                <MenuItem id="menuitem_exit" mnemonicParsing="false" text="Exit" />
+              </items>
+            </Menu>
+            <Menu id="menu_options" mnemonicParsing="false" text="Options">
+              <items>
+                  <MenuItem id="menuitem_controls" mnemonicParsing="false" text="Controls" />
+                <MenuItem id="menuitem_graphics" mnemonicParsing="false" text="Graphics" />
+              </items>
+            </Menu>
+            <Menu id="menu_help" mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem id="menuitem_creategame" mnemonicParsing="false" text="Create Game" />
+                  <MenuItem id="menuitem_joingame" mnemonicParsing="false" text="Join Game" />
+                  <MenuItem id="menuitem_spectategame" mnemonicParsing="false" text="Spectate Game" />
+              </items>
+            </Menu>
+            <Menu id="menu_credits" mnemonicParsing="false" text="Credits">
+              <items>
+                  <MenuItem id="menuitem_credits" mnemonicParsing="false" text="Credits" />
+                <MenuItem id="menuitem_copyright" mnemonicParsing="false" text="Copyright" />
+              </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+         <items>
+            <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+               <items>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label id="lbl_lobbyplayers" text="Lobby Players" />
+                        <ListView id="lv_lobbyplayers" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label id="lbl_gameplayers" text="Game Players" />
+                        <ListView id="lv_gameplayers" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.8" prefHeight="200.0" prefWidth="200.0">
+               <items>
+                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="115.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefWidth="115.0" text="Create Game" />
+                        <Separator prefWidth="200.0" />
+                        <Button mnemonicParsing="false" prefWidth="115.0" text="Join Game" />
+                        <Separator prefWidth="200.0" />
+                        <Button mnemonicParsing="false" prefWidth="115.0" text="Spectate Game" />
+                        <Separator prefWidth="200.0" />
+                        <Button id="btn_startgame" fx:id="btn_startgame" mnemonicParsing="false" onMouseClicked="#lobbyStartGame" prefHeight="25.0" prefWidth="138.0" text="Start Game" />
+                        <Text id="text_loggedin" fx:id="text_loggedin" strokeType="OUTSIDE" strokeWidth="0.0" text="Logged As:" />
+                     </children>
+                  </VBox>
+               </items>
+            </SplitPane>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>
