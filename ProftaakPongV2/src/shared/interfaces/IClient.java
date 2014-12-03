@@ -6,12 +6,14 @@
 
 package shared.interfaces;
 
+import java.rmi.Remote;
 import server.components.Persoon;
 
 /**
  *
  * @author Merijn
  */
-public interface IClient {
-    public void setPersoon(Persoon persoon);
+public interface IClient extends Remote
+{
+    
 }

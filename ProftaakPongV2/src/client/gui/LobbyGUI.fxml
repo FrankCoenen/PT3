@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proftaakpong.LobbyFXController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.LobbyFXController">
    <left>
       <SplitPane dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <items>
@@ -16,7 +16,7 @@
             <ListView fx:id="list_chatbox" prefHeight="200.0" prefWidth="200.0" />
             <ChoiceBox id="cb_onbekend" prefWidth="150.0" />
             <TextField id="tf_chatbericht" fx:id="tf_chatbericht" />
-            <Button id="btn_chatberichtsend" fx:id="btn_chatberichtsend" mnemonicParsing="false" onMouseClicked="#plaatsChatBericht" text="Send" />
+            <Button id="btn_chatberichtsend" mnemonicParsing="false" text="Send" />
          </items>
       </SplitPane>
    </left>
@@ -75,13 +75,13 @@
                   <ListView prefHeight="200.0" prefWidth="200.0" />
                   <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="115.0">
                      <children>
-                        <Button fx:id="btn_creategame" mnemonicParsing="false" onAction="#lobbyCreateGame" prefWidth="115.0" text="Create Game" />
+                        <Button mnemonicParsing="false" prefWidth="115.0" text="Create Game" />
                         <Separator prefWidth="200.0" />
                         <Button mnemonicParsing="false" prefWidth="115.0" text="Join Game" />
                         <Separator prefWidth="200.0" />
                         <Button mnemonicParsing="false" prefWidth="115.0" text="Spectate Game" />
                         <Separator prefWidth="200.0" />
-                        <Button id="btn_startgame" fx:id="btn_startgame" mnemonicParsing="false" onMouseClicked="#lobbyStartGame" prefHeight="25.0" prefWidth="138.0" text="Start Game" />
+                        <Button id="btn_startgame" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Start Game" />
                         <Text id="text_loggedin" fx:id="text_loggedin" strokeType="OUTSIDE" strokeWidth="0.0" text="Logged As:" />
                      </children>
                   </VBox>

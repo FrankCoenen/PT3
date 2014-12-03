@@ -6,17 +6,19 @@
 
 package shared.interfaces;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import shared.observer.RemotePublisher;
 
 /**
  *
  * @author Merijn
  */
-public interface ILobbySignedIn {
-    public IGame StartGame(IClient client);
-    public RemotePublisher getChatbox();
-    public void sendChat(String bericht);
-    public RemotePublisher CreateGame();
-    public RemotePublisher JoinGame();
-    public IGame spectateGame();
+public interface ILobbySignedIn extends Remote {
+    public IGame StartGame(IClient client) throws RemoteException;
+    public RemotePublisher getChatbox() throws RemoteException;
+    public void sendChat(String bericht) throws RemoteException;
+    public RemotePublisher CreateGame() throws RemoteException;
+    public RemotePublisher JoinGame() throws RemoteException;
+    public IGame spectateGame() throws RemoteException;
 }

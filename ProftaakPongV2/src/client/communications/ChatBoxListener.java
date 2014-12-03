@@ -8,8 +8,10 @@ package client.communications;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
+import java.util.List;
 import shared.observer.RemotePropertyListener;
 import shared.observer.RemotePublisher;
+import shared.serializable.ChatBericht;
 
 /**
  *
@@ -17,14 +19,21 @@ import shared.observer.RemotePublisher;
  */
 public class ChatBoxListener implements RemotePropertyListener {
     
+    private List<ChatBericht> berichten;
+            
     public ChatBoxListener()
     {
         
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void propertyChange(PropertyChangeEvent evt) throws RemoteException 
+    {
+        this.berichten = (List<ChatBericht>) evt.getNewValue();
     }
     
+    public List<ChatBericht> getBerichten()
+    {
+        return this.berichten;
+    }
 }

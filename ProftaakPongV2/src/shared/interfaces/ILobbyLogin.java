@@ -6,11 +6,15 @@
 
 package shared.interfaces;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author Merijn
  */
-public interface ILobbyLogin {
-    public ILobbySignedIn login(IClient client, String naam, String wachtwoord);
-    
+public interface ILobbyLogin extends Remote
+{
+    public ILobbySignedIn login(IClient client, String naam, String wachtwoord) throws RemoteException;
+    public boolean register(String naam, String wachtwoord) throws RemoteException; 
 }

@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proftaakpong.LoginFXController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.LoginFXController">
    <children>
       <PasswordField id="pf_inlogpassword" fx:id="pf_inlogpassword" layoutX="226.0" layoutY="200.0" text="test" />
       <TextField id="tf_inlogusername" fx:id="tf_inlogusername" layoutX="226.0" layoutY="125.0" text="test" />
@@ -27,7 +27,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <Button fx:id="btn_register" layoutX="226.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#registerPersoon" prefHeight="25.0" prefWidth="149.0" text="Register" />
+      <Button id="btn_register" fx:id="btn_register" layoutX="226.0" layoutY="287.0" mnemonicParsing="false" onAction="#registerPersoon" prefHeight="25.0" prefWidth="149.0" text="Register" />
       <Button id="btn_delete" fx:id="btn_delete" layoutX="226.0" layoutY="326.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete" />
       <Text id="text_melding" fx:id="text_melding" layoutX="289.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
