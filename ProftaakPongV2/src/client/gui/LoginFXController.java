@@ -80,34 +80,10 @@ public class LoginFXController implements Initializable
 
     public void registerPersoon(Event event) throws IOException 
     {
-        try
-        {
-            URL location1 = LobbyFXController.class.getResource("LobbyGUI.fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(location1);
-            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-            root = (Parent)(Node)fxmlLoader.load(location1.openStream());
-
-            LobbyFXController ctrl1 = (LobbyFXController) fxmlLoader.getController();
+        String username = tf_inlogusername.getText();
+        String password = pf_inlogpassword.getText();
         
-            stage = new Stage();
-            scene = new Scene(root);
-            stage.setScene(scene);
-                     
-            //show the stage
-            stage.showAndWait();
-        }
-        catch(IOException e)
-        {
-            e.getMessage();
-        }
-        
-    }
-
-    //Get stage by FXComponent
-    private Stage getStage() 
-    {
-        return (Stage) tf_inlogusername.getScene().getWindow();
+        client.register(username, password);
     }
     
     public void openLobbyGUI()         
