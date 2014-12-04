@@ -13,5 +13,13 @@ package Interfaces.game;
  */
 public interface IGame 
 {
-    
+    void addAI();
+    void resetBal();
+    void startGame();
+    void stopBatje();
+    void moveBatjeRight();
+    void moveBatjeLeft();
+    String getHoogsteScore();
+    Speler[] getSpelers();
+    Speelveld getSpeelveld();
 }
