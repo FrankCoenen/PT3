@@ -104,7 +104,7 @@ public class Client extends UnicastRemoteObject implements IClient
             
             if(lobby == null)
             {
-                System.out.println("Je moeder werkt niet met deze lobby = NULL BITCH");
+                System.out.println("foute inloggegevens");
             }
             else
             {
@@ -115,6 +115,18 @@ public class Client extends UnicastRemoteObject implements IClient
         catch (RemoteException ex) 
         {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void register(String gebruikersnaam, String wachtwoord)
+    {
+        try
+        {
+           login.register(gebruikersnaam, wachtwoord);
+        }
+        catch(Exception e)
+        {
+        
         }
     }
     
