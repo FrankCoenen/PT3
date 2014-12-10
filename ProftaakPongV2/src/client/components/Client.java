@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
@@ -46,6 +47,8 @@ public class Client extends UnicastRemoteObject implements IClient
     private static ILobbyLogin login;
     
     private static Registry registry;
+    
+    private static ObservableList playerList;
     
     private Client() throws RemoteException
     {
@@ -86,7 +89,7 @@ public class Client extends UnicastRemoteObject implements IClient
             INSTANCE = new Client();
         }
         lobbyFXController = controller;
-        
+        updatePlayerListGui();
         return INSTANCE;
     }
     
@@ -178,5 +181,27 @@ public class Client extends UnicastRemoteObject implements IClient
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void updatePlayerList(List<String> spelers) throws RemoteException {
+        playerList = FXCollections.observableArrayList(spelers);
+        
+        if(lobbyFXController != null)
+        {
+            this.updatePlayerListGui();
+        }
+        
+    }
+    
+    public static void updatePlayerListGui()
+    {
+        Platform.runLater(new Runnable(){
+
+            @Override
+            public void run() {
+                lobbyFXController.updateLobbyPlayers(playerList);
+            }
+        });
     }
 }

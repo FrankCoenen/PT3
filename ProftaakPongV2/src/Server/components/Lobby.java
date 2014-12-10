@@ -81,8 +81,12 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
             } catch (RemoteException ex) {
                 Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.addPersoon(p);
-            return p;
+            try {
+                return p;
+            } finally {
+                this.addPersoon(p);
+            }
+            
         }
         else
         {
@@ -116,6 +120,22 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         if(!personen.contains(p))
         {
             personen.add(p);
+        }
+        List<String> nameList = new ArrayList();
+        
+        for (Persoon pp : personen)
+        {
+            nameList.add(pp.getGebruikersnaam());
+        }
+        
+        for(Persoon pp : personen)
+        {
+            IClient client = pp.getClient();
+            try {
+                client.updatePlayerList(nameList);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

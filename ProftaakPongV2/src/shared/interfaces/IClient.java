@@ -7,6 +7,8 @@
 package shared.interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
 import server.components.Persoon;
 
 /**
@@ -15,5 +17,5 @@ import server.components.Persoon;
  */
 public interface IClient extends Remote
 {
-    
+    public void updatePlayerList(List<String> spelers) throws RemoteException;
 }

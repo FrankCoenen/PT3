@@ -65,4 +65,9 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     public String getGebruikersnaam() {
         return this.naam;
     }
+    
+    public IClient getClient()
+    {
+        return client;
+    }
 }

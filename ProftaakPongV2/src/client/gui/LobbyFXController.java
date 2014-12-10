@@ -59,7 +59,7 @@ public class LobbyFXController implements Initializable {
     
     //LOBBY FXML
     @FXML private Label lbl_lobbyplayers;
-    @FXML private ListView lv_lobbyplayers;
+    @FXML private ListView<String> lv_lobbyplayers;
     @FXML private Label lbl_gameplayers;
     @FXML private ListView lv_gameplayers;
     @FXML private ListView lv_games;
@@ -109,5 +109,9 @@ public class LobbyFXController implements Initializable {
     public void updateChatBox(ObservableList<ChatBericht> chatBerichten)
     {
         this.list_chatbox.setItems(chatBerichten);
+    }
+    public void updateLobbyPlayers(ObservableList<String> players)
+    {
+        this.lv_lobbyplayers.setItems(players);
     }
 }

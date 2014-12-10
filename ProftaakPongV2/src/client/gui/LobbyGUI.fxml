@@ -59,7 +59,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label id="lbl_lobbyplayers" text="Lobby Players" />
-                        <ListView id="lv_lobbyplayers" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView id="lv_lobbyplayers" fx:id="lv_lobbyplayers" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
