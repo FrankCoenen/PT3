@@ -58,6 +58,8 @@ public class controleerPersoonsGegevens extends DatabaseConnector implements Cal
                 String wachtwoordResult = res.getString("wachtwoord");
                 String gebruikersResult = res.getString("gebruikersNaam");
                 
+                System.out.println("User: " + gebruikersResult + " logged in!");
+                
                 if(wachtwoordResult.equals(""))
                 {
                     return false;

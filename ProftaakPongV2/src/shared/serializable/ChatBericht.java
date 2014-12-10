@@ -17,7 +17,7 @@ import server.components.Persoon;
 public class ChatBericht implements Serializable
 {
     private String tekst;
-    private Calendar datum;
+    private transient Calendar datum;
     private transient Persoon persoon;
     private String name;
 

@@ -130,7 +130,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         return this.chatbox;
     }
     
-    public ChatBox getChatBox()
+    public synchronized ChatBox getChatBox()
     {
         return this.chatbox;
     }

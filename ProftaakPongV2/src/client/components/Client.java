@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import server.components.ChatBox;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
 import shared.interfaces.ILobbyLogin;
@@ -54,7 +53,7 @@ public class Client extends UnicastRemoteObject implements IClient
         
         try
         {
-            registry = LocateRegistry.getRegistry("145.144.241.232", 1099);
+            registry = LocateRegistry.getRegistry("145.144.241.232", 1100);
         }
         catch(RemoteException e)
         {

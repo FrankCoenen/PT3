@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.observer.RemotePropertyListener;
@@ -32,7 +33,6 @@ public class ChatBoxListener extends UnicastRemoteObject implements RemoteProper
             
     public ChatBoxListener(Client client, RemotePublisher rp) throws RemoteException
     {
-
         berichten = new ArrayList();
         observerList = FXCollections.observableArrayList(berichten);     
         rp.addListener(this, PROPERTY);
@@ -40,8 +40,14 @@ public class ChatBoxListener extends UnicastRemoteObject implements RemoteProper
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) throws RemoteException 
-    {
-        this.observerList.setAll((List<ChatBericht>) evt.getNewValue());
+    public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                observerList.setAll((List<ChatBericht>) evt.getNewValue());
+            }
+        });
+
     }
 }

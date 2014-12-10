@@ -35,7 +35,7 @@ public class ChatBox extends UnicastRemoteObject implements RemotePublisher
         berichten = new ArrayList<ChatBericht>();  
     }
         
-    public void addBericht(ChatBericht c)
+    public synchronized void addBericht(ChatBericht c)
     {
         if(berichten.size() > MAXBERICHTEN)
         {
