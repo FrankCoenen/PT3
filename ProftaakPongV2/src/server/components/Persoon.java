@@ -6,23 +6,30 @@
 
 package server.components;
 
+import java.io.Serializable;
+import java.rmi.server.UnicastRemoteObject;
+import java.rmi.RemoteException;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
 import shared.interfaces.ILobbySignedIn;
 import shared.observer.RemotePublisher;
+import shared.serializable.ChatBericht;
 
 /**
  *
  * @author Merijn
  */
-public class Persoon implements ILobbySignedIn {
-    private IClient client;
+public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Serializable 
+{
+    private transient IClient client;
     private String naam;
+    private transient Lobby lobby;
     
-    public Persoon(IClient client, String naam)
+    public Persoon(IClient client, String naam, Lobby lobby) throws RemoteException
     {
         this.client = client;
         this.naam = naam;
+        this.lobby = lobby;
     }
 
     @Override
@@ -32,12 +39,12 @@ public class Persoon implements ILobbySignedIn {
 
     @Override
     public RemotePublisher getChatbox() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (RemotePublisher)lobby.getChatBox();
     }
 
     @Override
     public void sendChat(String bericht) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lobby.getChatBox().addBericht(new ChatBericht(bericht,(Persoon)this));
     }
 
     @Override
@@ -53,5 +60,9 @@ public class Persoon implements ILobbySignedIn {
     @Override
     public IGame spectateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getGebruikersnaam() {
+        return this.naam;
     }
 }

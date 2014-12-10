@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 import shared.interfaces.IClient;
 import shared.interfaces.ILobbyLogin;
 import shared.interfaces.ILobbySignedIn;
+import shared.observer.RemotePublisher;
+import shared.serializable.ChatBericht;
 
 /**
  *
@@ -30,11 +32,13 @@ import shared.interfaces.ILobbySignedIn;
 public class Lobby extends UnicastRemoteObject implements ILobbyLogin
 {
     private static Lobby INSTANCE; 
+    private ChatBox chatbox;
     private List<Persoon> personen;
     
     private Lobby() throws RemoteException
     {
         personen = new ArrayList<Persoon>();
+        chatbox = new ChatBox();
     }
     
     public static Lobby getInstance() throws RemoteException
@@ -48,7 +52,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
     }
 
     @Override
-    public ILobbySignedIn login(IClient client, String naam, String wachtwoord) 
+    public ILobbySignedIn login(IClient client, String naam, String wachtwoord)
     {
         Boolean result = false;
         controleerPersoonsGegevens login = new controleerPersoonsGegevens(naam, wachtwoord);
@@ -71,7 +75,12 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         
         if(result)
         {
-            Persoon p = new Persoon(client,naam);
+            Persoon p = null;
+            try {
+                p = new Persoon(client,naam,this);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.addPersoon(p);
             return p;
         }
@@ -97,8 +106,9 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         }
         finally
         {
-            return true;   
+               
         }
+        return true;
     }
     
     private synchronized void addPersoon(Persoon p)
@@ -108,4 +118,22 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
             personen.add(p);
         }
     }
+    
+    //Hier nog even naar kijken
+    public synchronized void addChatBericht(ChatBericht c)
+    {
+       this.chatbox.addBericht(c);
+    }
+    
+    public RemotePublisher getChatBoxRemote()
+    {
+        return this.chatbox;
+    }
+    
+    public ChatBox getChatBox()
+    {
+        return this.chatbox;
+    }
+
+   
 } 

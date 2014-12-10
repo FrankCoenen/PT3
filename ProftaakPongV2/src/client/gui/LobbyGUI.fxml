@@ -16,7 +16,7 @@
             <ListView fx:id="list_chatbox" prefHeight="200.0" prefWidth="200.0" />
             <ChoiceBox id="cb_onbekend" prefWidth="150.0" />
             <TextField id="tf_chatbericht" fx:id="tf_chatbericht" />
-            <Button id="btn_chatberichtsend" mnemonicParsing="false" text="Send" />
+            <Button id="btn_chatberichtsend" fx:id="btn_chatberichtsend" mnemonicParsing="false" onAction="#plaatsChatBericht" text="Send" />
          </items>
       </SplitPane>
    </left>

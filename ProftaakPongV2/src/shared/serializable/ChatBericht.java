@@ -7,6 +7,8 @@
 package shared.serializable;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import server.components.Persoon;
 
 /**
  *
@@ -14,5 +16,44 @@ import java.io.Serializable;
  */
 public class ChatBericht implements Serializable
 {
-   
+    private String tekst;
+    private Calendar datum;
+    private transient Persoon persoon;
+    private String name;
+
+    public ChatBericht(String tekst, Persoon persoon) {
+        this.tekst = tekst;
+        this.persoon = persoon;
+        this.datum = Calendar.getInstance();
+        this.name = persoon.getGebruikersnaam();
+    }
+
+    public String getTekst() {
+        return this.tekst;
+    }
+
+    public void setTekst(String tekst) {
+        this.tekst = tekst;
+    }
+
+    public Calendar getDatum() {
+        return this.datum;
+    }
+
+    public void setDatum(Calendar datum) {
+        this.datum = datum;
+    }
+
+    public Persoon getPersoon() {
+        return this.persoon;
+    }
+
+    @Override
+    public String toString() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("<").append(this.name).append(">").append(this.tekst);
+                
+        return sb.toString();
+    }
 }

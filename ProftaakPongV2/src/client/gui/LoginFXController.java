@@ -86,18 +86,26 @@ public class LoginFXController implements Initializable
         client.register(username, password);
     }
     
-    public void openLobbyGUI()         
+    public void openLobbyGUI() 
     {
         try
         {
+            System.out.println("Bezig");
             URL location1 = LobbyFXController.class.getResource("LobbyGUI.fxml");
+            System.out.println("Location1");
             FXMLLoader fxmlLoader = new FXMLLoader();
+            System.out.println("FXMLLOADER");
             fxmlLoader.setLocation(location1);
+            System.out.println("FXML SET LOCATION");
             fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+            System.out.println("FXML JavaFXBuildFactory");
+            
             root = (Parent)(Node)fxmlLoader.load(location1.openStream());
+            System.out.println("ROOT = ");
 
             LobbyFXController ctrl1 = (LobbyFXController) fxmlLoader.getController();
-        
+            System.out.println("CTRL1");
+            
             stage = new Stage();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -107,6 +115,7 @@ public class LoginFXController implements Initializable
         }
         catch(IOException e)
         {
+            System.out.println("loggin fx fout" + e.getMessage());
             e.getMessage();
         }
     }

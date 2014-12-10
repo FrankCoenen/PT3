@@ -53,15 +53,11 @@ public class registreerPersoonsGegevens extends DatabaseConnector implements Run
             prest.setInt(3, rating);
             
             prest.execute();
-            
-            ResultSet res = prest.getResultSet();
-            
-            prest.execute();
-            
         }
         catch(SQLException e)
         {
             e.getMessage();
+            System.out.println("db fout");
         }
         finally
         {

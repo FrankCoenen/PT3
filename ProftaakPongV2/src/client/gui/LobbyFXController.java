@@ -16,12 +16,14 @@ import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import shared.interfaces.IClient;
+import shared.serializable.ChatBericht;
 
 /**
  *
@@ -50,7 +52,7 @@ public class LobbyFXController implements Initializable {
     //CHATFIELD FXML
     @FXML private Label lbl_playername; 
     @FXML private Label lbl_chat;
-    @FXML private ListView list_chatbox;
+    @FXML private ListView<ChatBericht> list_chatbox;
     @FXML private ChoiceBox cb_onbekend;
     @FXML private TextField tf_chatbericht;
     @FXML private Button btn_chatberichtsend;
@@ -68,13 +70,14 @@ public class LobbyFXController implements Initializable {
     
     @FXML private Button btn_startgame;
     
-    private IClient client;
+    private Client client;
     
     public LobbyFXController()
     {
         try 
         {
             client = Client.getInstance(this);
+            client.initializeLobbyChat();
         } 
         catch (RemoteException ex) 
         {
@@ -100,24 +103,11 @@ public class LobbyFXController implements Initializable {
     
     public void plaatsChatBericht(Event event)
     {
-//        String chatbericht = tf_chatbericht.getText();
-//        
-//        if(chatbericht.equals(""))
-//        {
-//            
-//        }
-//        else
-//        {
-//            this.lobby.createChatBericht(chatbericht, persooninapplicatie);
-//            System.out.println("ChatBericht Geplaatst in FXController");
-//            this.updateChatBox();
-//            System.out.println("ChatBox updated!");
-//            this.tf_chatbericht.clear();
-//        }
+        client.sendChatBericht(tf_chatbericht.getText());
     }
     
-    public void updateChatBox()
+    public void updateChatBox(ObservableList<ChatBericht> chatBerichten)
     {
-//        list_chatbox.setItems(this.lobby.getChatBox().getBerichten());
+        this.list_chatbox.setItems(chatBerichten);
     }
 }

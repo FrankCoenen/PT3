@@ -15,13 +15,17 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import server.components.ChatBox;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
 import shared.interfaces.ILobbyLogin;
 import shared.interfaces.ILobbySignedIn;
+import shared.serializable.ChatBericht;
 
 /**
  *
@@ -33,24 +37,24 @@ public class Client extends UnicastRemoteObject implements IClient
     private static LobbyFXController lobbyFXController;
     private static GameFXController gameFXController;
     
-    private ChatBoxListener lobbyChatListener;
-    private ChatBoxListener gameChatListener;
+    private static ChatBoxListener lobbyChatListener;
+    private static ChatBoxListener gameChatListener;
     
     private static Client INSTANCE;
     
-    private IGame game;
-    private ILobbySignedIn lobby;
-    private ILobbyLogin login;
+    private static IGame game;
+    private static ILobbySignedIn lobby;
+    private static ILobbyLogin login;
     
-    private Registry registry;
+    private static Registry registry;
     
     private Client() throws RemoteException
     {
-        INSTANCE = this;
+        
         
         try
         {
-            registry = LocateRegistry.getRegistry("localhost", 1099);
+            registry = LocateRegistry.getRegistry("145.144.241.232", 1099);
         }
         catch(RemoteException e)
         {
@@ -70,7 +74,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         if(INSTANCE == null)
         {
-            new Client();
+            INSTANCE = new Client();
         }
         loginFXController = controller;
         return INSTANCE;
@@ -80,9 +84,10 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         if(INSTANCE == null)
         {
-            new Client();
+            INSTANCE = new Client();
         }
         lobbyFXController = controller;
+        
         return INSTANCE;
     }
     
@@ -90,7 +95,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         if(INSTANCE == null)
         {
-            new Client();
+            INSTANCE = new Client();
         }
         gameFXController = controller;
         return INSTANCE;
@@ -123,10 +128,11 @@ public class Client extends UnicastRemoteObject implements IClient
         try
         {
            login.register(gebruikersnaam, wachtwoord);
+           System.out.println("Register Goed");
         }
         catch(Exception e)
         {
-        
+            System.out.println("Register Fout");
         }
     }
     
@@ -141,5 +147,37 @@ public class Client extends UnicastRemoteObject implements IClient
                 loginFXController.openLobbyGUI();
             }
         });
+    }
+    
+    public void updateLobbyChatBox(ObservableList<ChatBericht> list_cb)
+    {
+        System.out.println("Platform.runLater observable list adden");
+
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                lobbyFXController.updateChatBox(list_cb);
+            }
+        });
+
+    }
+    
+    public void sendChatBericht(String bericht)
+    {
+        try {
+            lobby.sendChat(bericht);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void initializeLobbyChat()
+    {
+        try {
+            lobbyChatListener = new ChatBoxListener(INSTANCE, lobby.getChatbox());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
