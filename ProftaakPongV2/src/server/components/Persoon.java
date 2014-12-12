@@ -24,6 +24,7 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     private transient IClient client;
     private String naam;
     private transient Lobby lobby;
+    private transient GameLobby gameLobby;
     
     public Persoon(IClient client, String naam, Lobby lobby) throws RemoteException
     {
@@ -48,8 +49,16 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     }
 
     @Override
-    public RemotePublisher CreateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean CreateGame() {
+        if (this.gameLobby != null)
+        {
+            this.gameLobby = lobby.createGame(this);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Override

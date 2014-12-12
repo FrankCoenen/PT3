@@ -49,7 +49,7 @@ public interface ILobbySignedIn extends Remote {
      * @return een RemotePublsiher
      * @throws RemoteException omdat deze class remote extends.
      */
-    public RemotePublisher CreateGame() throws RemoteException;
+    public boolean CreateGame() throws RemoteException;
     
     /**
      * Met deze methode kan je een lobby joinen die nog geen 3 personen bevat.

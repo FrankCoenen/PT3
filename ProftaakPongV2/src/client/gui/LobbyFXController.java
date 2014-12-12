@@ -114,4 +114,14 @@ public class LobbyFXController implements Initializable {
     {
         this.lv_lobbyplayers.setItems(players);
     }
+
+    public void updateGameLobbys(ObservableList playerList) 
+    {
+        this.lv_games.setItems(playerList);
+    }
+
+    public void updateGameLobbyPlayers(ObservableList gameLobbyPlayerList) 
+    {
+        this.lv_gameplayers.setItems(gameLobbyPlayerList);
+    }
 }

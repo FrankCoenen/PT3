@@ -18,4 +18,7 @@ import server.components.Persoon;
 public interface IClient extends Remote
 {
     public void updatePlayerList(List<String> spelers) throws RemoteException;
+    public void updateGameLobbyList(List<String> gameLobbys) throws RemoteException;
+    public void updateGameLobbyPlayers(List<String> gameLobbySpelers) throws RemoteException;
+    public boolean ping() throws RemoteException;
 }

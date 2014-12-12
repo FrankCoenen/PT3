@@ -49,6 +49,8 @@ public class Client extends UnicastRemoteObject implements IClient
     private static Registry registry;
     
     private static ObservableList playerList;
+    private static ObservableList gameLobbyList;
+    private static ObservableList gameLobbyPlayerList;
     
     private Client() throws RemoteException
     {
@@ -204,4 +206,47 @@ public class Client extends UnicastRemoteObject implements IClient
             }
         });
     }
+
+    @Override
+    public boolean ping() throws RemoteException {
+        return true;
+    }
+
+    @Override
+    public void updateGameLobbyList(List<String> gameLobbys) throws RemoteException {
+        gameLobbyList = FXCollections.observableArrayList(gameLobbys);
+        
+        if(lobbyFXController != null)
+        {
+            this.updateGameLobbyListGUI();
+        }
+    }
+
+    @Override
+    public void updateGameLobbyPlayers(List<String> gameLobbySpelers) throws RemoteException {
+        gameLobbyPlayerList = FXCollections.observableArrayList(gameLobbySpelers);
+        
+        if(lobbyFXController != null)
+        {
+            this.updateGameLObbyListPlayersGUI();
+        }
+    }
+
+    private void updateGameLobbyListGUI() {
+        Platform.runLater(new Runnable(){
+
+            @Override
+            public void run() {
+                lobbyFXController.updateGameLobbys(gameLobbyList);
+            }
+        });    }
+
+    private void updateGameLObbyListPlayersGUI() {
+        Platform.runLater(new Runnable(){
+
+            @Override
+            public void run() {
+                lobbyFXController.updateGameLobbyPlayers(gameLobbyPlayerList);
+            }
+        });    }
 }

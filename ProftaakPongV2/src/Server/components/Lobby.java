@@ -13,6 +13,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,11 +36,31 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
     private static Lobby INSTANCE; 
     private ChatBox chatbox;
     private List<Persoon> personen;
+    private Timer ping;
+    private List<GameLobby> games;
     
     private Lobby() throws RemoteException
     {
         personen = new ArrayList<Persoon>();
         chatbox = new ChatBox();
+        ping = new Timer();
+        TimerTask tTask = new TimerTask(){
+
+            @Override
+            public void run() {
+                for(Persoon p : personen)
+                {
+                    try{
+                        p.getClient().ping();
+                    }
+                    catch(Exception e)
+                    {
+                        personen.remove(p);
+                        updatePersoonen();
+                    }
+                }
+            }
+        };
     }
     
     public static Lobby getInstance() throws RemoteException
@@ -121,22 +143,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         {
             personen.add(p);
         }
-        List<String> nameList = new ArrayList();
-        
-        for (Persoon pp : personen)
-        {
-            nameList.add(pp.getGebruikersnaam());
-        }
-        
-        for(Persoon pp : personen)
-        {
-            IClient client = pp.getClient();
-            try {
-                client.updatePlayerList(nameList);
-            } catch (RemoteException ex) {
-                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        updatePersoonen();
     }
     
     //Hier nog even naar kijken
@@ -155,5 +162,48 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         return this.chatbox;
     }
 
-   
+    public void updatePersoonen()
+    {
+        List<String> nameList = new ArrayList();
+        
+        for (Persoon pp : personen)
+        {
+            nameList.add(pp.getGebruikersnaam());
+        }
+        
+        for(Persoon pp : personen)
+        {
+            IClient client = pp.getClient();
+            try {
+                client.updatePlayerList(nameList);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public void updateGameLobbys()
+    {
+        List<String> gameList = new ArrayList();
+        
+        for (GameLobby gl : games)
+        {
+            gameList.add(gl.getName());
+        }
+        for (Persoon p : personen)
+        {
+            try {
+                p.getClient().updateGameLobbyList(gameList);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public GameLobby createGame(Persoon p)
+    {
+        GameLobby gl = new GameLobby(p);
+        this.games.add(gl);
+        updateGameLobbys();
+        return gl;
+    }
 } 
