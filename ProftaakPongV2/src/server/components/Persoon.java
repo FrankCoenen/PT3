@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package server.components;
+package Server.components;
 
 import java.io.Serializable;
 import java.rmi.server.UnicastRemoteObject;
@@ -78,5 +78,16 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     public IClient getClient()
     {
         return client;
+    }
+
+    @Override
+    public void logOut() throws RemoteException 
+    {
+        lobby.getPersonen().remove(this);
+        lobby.updatePersonen();
+        
+        //Om het object daadwerkelijk te verwijderen anders blijft hij bestaan
+        //word niet opgehaald door garbage collector!
+        UnicastRemoteObject.unexportObject(this, true);
     }
 }

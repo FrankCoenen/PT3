@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Server.components;
+package server.components;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

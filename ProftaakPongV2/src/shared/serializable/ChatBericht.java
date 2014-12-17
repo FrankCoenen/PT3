@@ -8,7 +8,7 @@ package shared.serializable;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import server.components.Persoon;
+import Server.components.Persoon;
 
 /**
  *
