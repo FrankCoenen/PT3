@@ -67,4 +67,10 @@ public interface ILobbySignedIn extends Remote {
      * @throws RemoteException omdat deze class remote extends
      */
     public IGame spectateGame() throws RemoteException;
+    
+    /**
+     * 
+     * @throws RemoteException 
+     */
+    public void logOut() throws RemoteException;
 }

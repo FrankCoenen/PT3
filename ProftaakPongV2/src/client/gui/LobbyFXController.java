@@ -124,4 +124,9 @@ public class LobbyFXController implements Initializable {
     {
         this.lv_gameplayers.setItems(gameLobbyPlayerList);
     }
+    
+    public void logUit()
+    {
+        this.logUit();
+    }
 }

@@ -56,11 +56,13 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
                     catch(Exception e)
                     {
                         personen.remove(p);
-                        updatePersoonen();
+                        updatePersonen();
                     }
                 }
             }
         };
+        
+        ping.schedule(tTask, 0, 1000);
     }
     
     public static Lobby getInstance() throws RemoteException
@@ -143,7 +145,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         {
             personen.add(p);
         }
-        updatePersoonen();
+        updatePersonen();
     }
     
     //Hier nog even naar kijken
@@ -162,7 +164,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         return this.chatbox;
     }
 
-    public void updatePersoonen()
+    public void updatePersonen()
     {
         List<String> nameList = new ArrayList();
         
@@ -174,9 +176,12 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         for(Persoon pp : personen)
         {
             IClient client = pp.getClient();
-            try {
+            try 
+            {
                 client.updatePlayerList(nameList);
-            } catch (RemoteException ex) {
+            } 
+            catch (RemoteException ex) 
+            {
                 Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -206,4 +211,14 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         updateGameLobbys();
         return gl;
     }
+    
+    public List<Persoon> getPersonen() {
+        return personen;
+    }
+
+    public void setPersonen(List<Persoon> personen) {
+        this.personen = personen;
+    }
+    
+    
 } 
