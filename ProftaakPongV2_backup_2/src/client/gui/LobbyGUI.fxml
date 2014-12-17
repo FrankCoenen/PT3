@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.LobbyFXController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.LobbyFXController">
    <left>
       <SplitPane dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <items>
@@ -72,16 +72,17 @@
             </SplitPane>
             <SplitPane dividerPositions="0.8" prefHeight="200.0" prefWidth="200.0">
                <items>
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="lv_games" prefHeight="200.0" prefWidth="200.0" />
                   <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="115.0">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="115.0" text="Create Game" />
+                        <Button fx:id="btn_creategame" mnemonicParsing="false" onAction="#lobbyCreateGame" prefWidth="115.0" text="Create Game" />
                         <Separator prefWidth="200.0" />
                         <Button mnemonicParsing="false" prefWidth="115.0" text="Join Game" />
                         <Separator prefWidth="200.0" />
                         <Button mnemonicParsing="false" prefWidth="115.0" text="Spectate Game" />
                         <Separator prefWidth="200.0" />
-                        <Button id="btn_startgame" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Start Game" />
+                        <Button id="btn_startgame" fx:id="btn_startgame" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Start Game" />
+                        <Button fx:id="btn_logout" mnemonicParsing="false" onAction="#logUit" prefHeight="25.0" prefWidth="117.0" text="Log Out" />
                         <Text id="text_loggedin" fx:id="text_loggedin" strokeType="OUTSIDE" strokeWidth="0.0" text="Logged As:" />
                      </children>
                   </VBox>

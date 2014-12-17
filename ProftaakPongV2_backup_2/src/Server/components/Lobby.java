@@ -42,6 +42,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
     private Lobby() throws RemoteException
     {
         personen = new ArrayList<Persoon>();
+        games = new ArrayList<GameLobby>();
         chatbox = new ChatBox();
         ping = new Timer();
         TimerTask tTask = new TimerTask(){
@@ -196,9 +197,12 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         }
         for (Persoon p : personen)
         {
-            try {
+            try 
+            {
                 p.getClient().updateGameLobbyList(gameList);
-            } catch (RemoteException ex) {
+            } 
+            catch (RemoteException ex) 
+            {
                 Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -207,7 +211,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
     public GameLobby createGame(Persoon p)
     {
         GameLobby gl = new GameLobby(p);
-        this.games.add(gl);
+        games.add(gl);
         updateGameLobbys();
         return gl;
     }

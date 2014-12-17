@@ -49,8 +49,9 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     }
 
     @Override
-    public boolean CreateGame() {
-        if (this.gameLobby != null)
+    public boolean CreateGame() 
+    {
+        if (this.gameLobby == null)
         {
             this.gameLobby = lobby.createGame(this);
             return true;

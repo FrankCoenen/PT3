@@ -18,10 +18,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import shared.interfaces.IClient;
 import shared.serializable.ChatBericht;
 
@@ -68,8 +73,10 @@ public class LobbyFXController implements Initializable {
     @FXML private Button btn_spectategame;
     @FXML private Text text_loggedin;
     
-    @FXML private Button btn_startgame;
+    @FXML private Button btn_logout;
     
+    @FXML private Button btn_startgame;
+       
     private Client client;
     
     public LobbyFXController()
@@ -88,12 +95,12 @@ public class LobbyFXController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        
+
     }
     
     public void lobbyCreateGame(Event event) throws IOException
     {
-        
+        client.createGameLobby();
     }
     
     public void lobbySpectageGame(Event event) throws IOException
@@ -127,6 +134,6 @@ public class LobbyFXController implements Initializable {
     
     public void logUit()
     {
-        this.logUit();
+        
     }
 }

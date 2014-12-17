@@ -54,8 +54,6 @@ public class Client extends UnicastRemoteObject implements IClient
     
     private Client() throws RemoteException
     {
-        
-        
         try
         {
             registry = LocateRegistry.getRegistry("145.144.241.91", 1100);
@@ -208,7 +206,8 @@ public class Client extends UnicastRemoteObject implements IClient
     }
 
     @Override
-    public boolean ping() throws RemoteException {
+    public boolean ping() throws RemoteException 
+    {
         return true;
     }
 
@@ -223,7 +222,8 @@ public class Client extends UnicastRemoteObject implements IClient
     }
 
     @Override
-    public void updateGameLobbyPlayers(List<String> gameLobbySpelers) throws RemoteException {
+    public void updateGameLobbyPlayers(List<String> gameLobbySpelers) throws RemoteException 
+    {
         gameLobbyPlayerList = FXCollections.observableArrayList(gameLobbySpelers);
         
         if(lobbyFXController != null)
@@ -232,21 +232,37 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
 
-    private void updateGameLobbyListGUI() {
+    private void updateGameLobbyListGUI() 
+    {
         Platform.runLater(new Runnable(){
 
             @Override
             public void run() {
                 lobbyFXController.updateGameLobbys(gameLobbyList);
             }
-        });    }
+        });    
+    }
 
     private void updateGameLObbyListPlayersGUI() {
         Platform.runLater(new Runnable(){
 
             @Override
-            public void run() {
+            public void run() 
+            {
                 lobbyFXController.updateGameLobbyPlayers(gameLobbyPlayerList);
             }
-        });    }
+        });    
+    }
+    
+    public void createGameLobby()
+    {
+        try 
+        {
+            lobby.CreateGame();
+        } 
+        catch (RemoteException ex) 
+        {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
