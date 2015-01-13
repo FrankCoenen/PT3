@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.LoginFXController">
+   <children>
+      <PasswordField id="pf_inlogpassword" fx:id="pf_inlogpassword" layoutX="226.0" layoutY="200.0" text="test" />
+      <TextField id="tf_inlogusername" fx:id="tf_inlogusername" layoutX="226.0" layoutY="125.0" text="test" />
+      <Label layoutX="273.0" layoutY="108.0" text="Username" />
+      <Label layoutX="275.0" layoutY="183.0" text="Password" />
+      <Button id="btn_inlog" fx:id="btn_inlog" layoutX="226.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#loginPersoon" prefHeight="25.0" prefWidth="149.0" text="Log In" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Credits">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <Button id="btn_register" fx:id="btn_register" layoutX="226.0" layoutY="287.0" mnemonicParsing="false" onAction="#registerPersoon" prefHeight="25.0" prefWidth="149.0" text="Register" />
+      <Button id="btn_delete" fx:id="btn_delete" layoutX="226.0" layoutY="326.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete" />
+      <Text id="text_melding" fx:id="text_melding" layoutX="289.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>

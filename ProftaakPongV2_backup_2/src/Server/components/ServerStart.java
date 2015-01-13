@@ -11,11 +11,15 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import shared.interfaces.ILobbyLogin;
 
+
+
+
 /**
  *
  * @author Merijn
  */
-public class ServerStart {
+public class ServerStart 
+{
     
     private static final int portNumber = 1100;
 
@@ -32,10 +36,12 @@ public class ServerStart {
         System.out.println("Server: Port number " + portNumber);
 
         // Create student administration
-        try {
-            lobby = Lobby.getInstance();
+        try 
+        {
+            lobby = (ILobbyLogin)Lobby.getInstance();
             System.out.println("Server: lobby created");
-        } catch (RemoteException ex) {
+        } catch (RemoteException ex) 
+        {
             System.out.println("Server: Cannot create lobby");
             System.out.println("Server: RemoteException: " + ex.getMessage());
         }

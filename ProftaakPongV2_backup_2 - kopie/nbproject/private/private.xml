@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/shared/interfaces/IClient.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/Speler.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/client/components/Client.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/client/gui/LobbyFXController.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/Persoon.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/ServerStart.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/GameLobby.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/client/gui/ClientStart.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/Game.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/shared/interfaces/ILobbyLogin.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/Lobby.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/client/gui/LoginFXController.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/Server/components/game/Speelveld.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/client/gui/GameFXController.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/PT3/ProftaakPongV2_backup_2/src/shared/interfaces/ILobbySignedIn.java</file>
+        </group>
+    </open-files>
+</project-private>

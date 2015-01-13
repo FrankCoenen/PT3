@@ -6,9 +6,8 @@
 
 package server.components;
 
-
-import Server.sql.controleerPersoonsGegevens;
-import Server.sql.registreerPersoonsGegevens;
+import server.sql.controleerPersoonsGegevens;
+import server.sql.registreerPersoonsGegevens;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -26,6 +25,9 @@ import shared.interfaces.ILobbyLogin;
 import shared.interfaces.ILobbySignedIn;
 import shared.observer.RemotePublisher;
 import shared.serializable.ChatBericht;
+
+
+
 
 /**
  *
@@ -147,6 +149,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
             personen.add(p);
         }
         updatePersonen();
+        updateGameLobbys();
     }
     
     //Hier nog even naar kijken
@@ -220,8 +223,18 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         return personen;
     }
 
-    public void setPersonen(List<Persoon> personen) {
+    public void setPersonen(List<Persoon> personen) 
+    {
         this.personen = personen;
+    }
+    
+    
+    public List<GameLobby> getGames() {
+        return games;
+    }
+
+    public void setGames(List<GameLobby> games) {
+        this.games = games;
     }
     
     

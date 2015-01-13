@@ -10,6 +10,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import server.components.Persoon;
+import server.components.game.Speelveld;
 
 /**
  *
@@ -21,4 +22,6 @@ public interface IClient extends Remote
     public void updateGameLobbyList(List<String> gameLobbys) throws RemoteException;
     public void updateGameLobbyPlayers(List<String> gameLobbySpelers) throws RemoteException;
     public boolean ping() throws RemoteException;
+    public void startGameClient(IGame game) throws RemoteException;
+    public void updateSpeelveld(Speelveld speelveld) throws RemoteException;
 }

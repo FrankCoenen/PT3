@@ -10,12 +10,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import shared.observer.BasicPublisher;
 import shared.observer.RemotePropertyListener;
 import shared.observer.RemotePublisher;
 import shared.serializable.ChatBericht;
+
+
 
 /**
  *

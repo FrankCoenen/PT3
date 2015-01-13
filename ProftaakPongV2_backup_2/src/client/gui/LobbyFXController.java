@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -95,7 +96,12 @@ public class LobbyFXController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-
+        
+    }
+    
+    public void setPlayerNameLobby(String text)
+    {
+        this.lbl_playername.setText(text);
     }
     
     public void lobbyCreateGame(Event event) throws IOException
@@ -103,9 +109,30 @@ public class LobbyFXController implements Initializable {
         client.createGameLobby();
     }
     
-    public void lobbySpectageGame(Event event) throws IOException
+    public void lobbyJoinGame(Event event) throws IOException
     {
-        
+        if(this.lv_games.getSelectionModel().getSelectedItem() == null)
+        {
+            
+        }
+        else
+        {
+            String gamename = (String)this.lv_games.getSelectionModel().getSelectedItem();
+            client.joinGameLobby(gamename);
+        }
+    }
+    
+    public void lobbySpectateGame(Event event) throws IOException
+    {
+        if(this.lv_games.getSelectionModel().getSelectedItem() == null)
+        {
+            
+        }
+        else
+        {
+            String gamename = (String)this.lv_games.getSelectionModel().getSelectedItem();
+            client.spectateGameLobby(gamename);
+        }
     }
     
     public void plaatsChatBericht(Event event)
@@ -117,6 +144,7 @@ public class LobbyFXController implements Initializable {
     {
         this.list_chatbox.setItems(chatBerichten);
     }
+    
     public void updateLobbyPlayers(ObservableList<String> players)
     {
         this.lv_lobbyplayers.setItems(players);
@@ -132,8 +160,30 @@ public class LobbyFXController implements Initializable {
         this.lv_gameplayers.setItems(gameLobbyPlayerList);
     }
     
+    
     public void logUit()
     {
         
+    }
+    
+    public void disableStartGameButton()
+    {
+        this.btn_startgame.setDisable(true);
+    }
+    
+    public void enableStartGameButton()
+    {
+        this.btn_startgame.setDisable(false);
+    }
+    
+    public void openGameGUI()
+    {
+        GameFXController nieuw = new GameFXController();
+        nieuw.start();
+    }
+        
+    public void StartGame(ActionEvent event)
+    {
+        this.client.startGame();
     }
 }

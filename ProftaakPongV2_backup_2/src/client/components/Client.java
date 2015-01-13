@@ -21,11 +21,14 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import server.components.game.Speelveld;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
 import shared.interfaces.ILobbyLogin;
 import shared.interfaces.ILobbySignedIn;
 import shared.serializable.ChatBericht;
+
+
 
 /**
  *
@@ -56,7 +59,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         try
         {
-            registry = LocateRegistry.getRegistry("145.144.241.91", 1100);
+            registry = LocateRegistry.getRegistry("192.168.1.21", 1100);
         }
         catch(RemoteException e)
         {
@@ -89,7 +92,9 @@ public class Client extends UnicastRemoteObject implements IClient
             INSTANCE = new Client();
         }
         lobbyFXController = controller;
+        getGebruikersNaam();
         updatePlayerListGui();
+        updateGameLobbyListGUI();
         return INSTANCE;
     }
     
@@ -162,13 +167,42 @@ public class Client extends UnicastRemoteObject implements IClient
                 lobbyFXController.updateChatBox(list_cb);
             }
         });
+    }
+    
+    /**
+     * Methode voor het updaten van de chatbox in de GameFXController
+     * @param list_cb 
+     */
+    public void updateGameChatBox(ObservableList<ChatBericht> list_cb)
+    {
+        System.out.println("Platform.runLater observable list adden");
 
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                gameFXController.updateChatBox(list_cb);
+            }
+        });
     }
     
     public void sendChatBericht(String bericht)
     {
         try {
-            lobby.sendChat(bericht);
+            lobby.sendChatLobby(bericht);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * TOEGEVOEGD NAAR KIJKEN!!
+     * @param bericht 
+     */
+    public void sendChatBerichtGame(String bericht)
+    {
+        try {
+            game.sendChat(bericht);
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -177,8 +211,21 @@ public class Client extends UnicastRemoteObject implements IClient
     public void initializeLobbyChat()
     {
         try {
-            lobbyChatListener = new ChatBoxListener(INSTANCE, lobby.getChatbox());
+            lobbyChatListener = new ChatBoxListener(INSTANCE, lobby.getChatboxLobby());
         } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * TOEGEVOEGD NAAR KIJKEN!!
+     */
+    public void initializeGameChat()
+    {
+        try {
+            gameChatListener = new ChatBoxListener(INSTANCE, game.getChatboxRemote());
+        } 
+        catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -221,30 +268,40 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
 
+    /**
+     * Word gebruikt om de list aan te passen van de GUI van GameLobby
+     * aanwezige spelers
+     * @param gameLobbySpelers
+     * @throws RemoteException 
+     */
     @Override
     public void updateGameLobbyPlayers(List<String> gameLobbySpelers) throws RemoteException 
     {
         gameLobbyPlayerList = FXCollections.observableArrayList(gameLobbySpelers);
         
+        this.getSpelerSize();
         if(lobbyFXController != null)
         {
-            this.updateGameLObbyListPlayersGUI();
+            this.updateGameLobbyListPlayersGUI();
         }
     }
 
-    private void updateGameLobbyListGUI() 
+    private static void updateGameLobbyListGUI() 
     {
         Platform.runLater(new Runnable(){
 
             @Override
-            public void run() {
+            public void run() 
+            {
                 lobbyFXController.updateGameLobbys(gameLobbyList);
             }
         });    
     }
 
-    private void updateGameLObbyListPlayersGUI() {
-        Platform.runLater(new Runnable(){
+    private static void updateGameLobbyListPlayersGUI() 
+    {
+        Platform.runLater(new Runnable()
+        {
 
             @Override
             public void run() 
@@ -261,6 +318,163 @@ public class Client extends UnicastRemoteObject implements IClient
             lobby.CreateGame();
         } 
         catch (RemoteException ex) 
+        {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void joinGameLobby(String gamename)
+    {
+        try {
+            lobby.JoinGame(gamename);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void spectateGameLobby(String gamename)
+    {
+        try {
+            lobby.spectateGame(gamename);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void getGebruikersNaam()
+    {
+        Platform.runLater(new Runnable() 
+        {
+
+            @Override
+            public void run() {
+                try {
+            lobbyFXController.setPlayerNameLobby(lobby.showGebruikersNaam());
+        } 
+                catch (RemoteException ex) 
+        {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            }
+        });
+    }
+    
+    private int getSpelerSize()
+    {
+        try 
+        {
+            if(lobby.getSpelerSize() < 3)
+            {
+                Platform.runLater(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        lobbyFXController.disableStartGameButton();
+                    }
+                });
+            }
+            else
+            {
+                Platform.runLater(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        lobbyFXController.enableStartGameButton();
+                    }
+                });
+            }
+        } 
+        catch (RemoteException ex) 
+        {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+    
+    public void startGame()
+    {
+        try {
+            lobby.StartGame();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void startGameClient(IGame game) throws RemoteException {
+        this.game = game;
+        
+        Platform.runLater(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        lobbyFXController.openGameGUI();
+                    }
+                });
+        
+    }
+    
+    @Override
+    public void updateSpeelveld(Speelveld speelveld)
+    {
+        Platform.runLater(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        gameFXController.drawSpeelveld(speelveld);
+                    }
+                });
+    }
+    
+    public double getRotation()
+    {
+        double position = 0;
+        try {
+            position = game.rotatePosition();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (position == 0)
+        {
+            return 0;
+        }
+        else if (position == 1)
+        {
+            return 240;
+        }
+        else if (position == 2)
+        {
+            return 120;
+        }
+        
+        
+        position = -999;
+        return position;
+    }
+    public void moveLeft()
+    {
+        try {
+            game.setMoveLeft(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void moveRight()
+    {
+        try {
+            game.setMoveRight(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void stopMove()
+    {
+        try {
+            game.setMoveLeft(false);
+            game.setMoveRight(false);
+        }
+        catch(RemoteException ex)
         {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

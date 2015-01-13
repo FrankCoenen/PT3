@@ -19,6 +19,8 @@ import shared.observer.RemotePropertyListener;
 import shared.observer.RemotePublisher;
 import shared.serializable.ChatBericht;
 
+
+
 /**
  *
  * @author Merijn

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Server.data;
+package server.data;
 
 
 import java.sql.*;

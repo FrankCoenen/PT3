@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package Server.sql;
+package server.sql;
 
-import Server.data.DatabaseConnector;
+import server.data.DatabaseConnector;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
