@@ -51,6 +51,20 @@ public class registreerPersoonsGegevens extends DatabaseConnector implements Run
             prest.setString(2, Invoerwachtwoord);
             
             prest.execute();
+            
+            
+            String query2 = "INSERT INTO score (GEBRUIKERSNAAM, SCORE, ROUND1, ROUND2, ROUND3, ROUND4, ROUND5)" 
+                    + " values (?,?,?,?,?,?,?)";
+            PreparedStatement prest2 = conn.prepareStatement(query2);
+            prest2.setString(1, username);
+            prest2.setDouble(2, 15);
+            prest2.setInt(3, 15);
+            prest2.setInt(4, 15);
+            prest2.setInt(5, 15);
+            prest2.setInt(6, 15);
+            prest2.setInt(7, 15);
+            
+            prest2.execute();
         }
         catch(SQLException e)
         {
