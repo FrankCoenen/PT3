@@ -21,7 +21,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -55,6 +58,8 @@ public class LobbyFXController implements Initializable {
     @FXML private MenuItem menuitem_credits;
     @FXML private MenuItem menuitem_copyright;
     
+    @FXML private MenuItem menuitem_leadboards;
+    
     //CHATFIELD FXML
     @FXML private Label lbl_playername; 
     @FXML private Label lbl_chat;
@@ -77,6 +82,12 @@ public class LobbyFXController implements Initializable {
     @FXML private Button btn_logout;
     
     @FXML private Button btn_startgame;
+    
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
+    private Scene currentscene;
+    private Stage currentstage;
        
     private Client client;
     
@@ -185,5 +196,28 @@ public class LobbyFXController implements Initializable {
     public void StartGame(ActionEvent event)
     {
         this.client.startGame();
+    }
+    
+    public void openLeadboardGUI(ActionEvent event)
+    {
+        URL location1 = LeaderboardFXController.class.getResource("LeaderboardGUI.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location1);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        try {
+            root = (Parent)(Node)fxmlLoader.load(location1.openStream());
+        } catch (IOException ex) {
+            Logger.getLogger(LobbyFXController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        }
+
+        LeaderboardFXController ctrl1 = (LeaderboardFXController) fxmlLoader.getController();  
+
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setScene(scene);
+                
+        //show the stage
+        stage.showAndWait();
     }
 }

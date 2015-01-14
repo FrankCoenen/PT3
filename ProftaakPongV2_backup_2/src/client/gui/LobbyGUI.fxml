@@ -27,6 +27,7 @@
               <items>
                   <MenuItem id="menuitem_logout" mnemonicParsing="false" text="LogOut" />
                 <MenuItem id="menuitem_exit" mnemonicParsing="false" text="Exit" />
+                  <MenuItem fx:id="menuitem_leadboards" mnemonicParsing="false" onAction="#openLeadboardGUI" text="LeadBoards" />
               </items>
             </Menu>
             <Menu id="menu_options" mnemonicParsing="false" text="Options">

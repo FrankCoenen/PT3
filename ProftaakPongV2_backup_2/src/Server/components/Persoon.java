@@ -141,6 +141,20 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
         return null;
     }
     
+    public Toeschouwer getToeschouwer(Game game)
+    {
+        try 
+        {
+            return new Toeschouwer(this.client, this.naam, this.lobby, game);
+        } 
+        catch (RemoteException ex) 
+        {
+            Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
     @Override
     public int getSpelerSize()
     {
@@ -161,6 +175,11 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
         } catch (RemoteException ex) {
             Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String getType()
+    {
+        return "persoon";
     }
     
 }

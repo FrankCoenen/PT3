@@ -132,4 +132,10 @@ public class Speler extends Persoon implements IGame
         return this.playerNr;
     }
     
+    @Override
+    public String getType()
+    {
+        return "speler";
+    }
+    
 }

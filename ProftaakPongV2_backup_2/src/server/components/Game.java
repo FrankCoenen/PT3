@@ -6,20 +6,15 @@
 
 package server.components;
 
-import server.components.AI;
-import server.components.Speler;
 import server.components.game.Speelveld;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import shared.observer.RemotePublisher;
 import shared.serializable.ChatBericht;
-
-
-
-
 
 /**
  *
@@ -29,6 +24,7 @@ public class Game extends TimerTask
 {
     private ChatBox chatbox = null;
     private Speler[] spelers;
+    private ArrayList<Toeschouwer> toeschouwers;
     private AI[] ai;
     private Timer gameTimer;
     
@@ -46,6 +42,8 @@ public class Game extends TimerTask
         //KOMT ANDERE KEER EERST REST
         this.ai = new AI[3];
         
+        this.toeschouwers = new ArrayList<Toeschouwer>();
+        
         this.gameTimer = new Timer();    
     }
     
@@ -62,6 +60,11 @@ public class Game extends TimerTask
             }
         }
         return -1;
+    }
+    
+    public void addToeschouwer(Toeschouwer toeschouwer)
+    {
+        toeschouwers.add(toeschouwer);
     }
 
     public void sendChat(ChatBericht bericht) throws RemoteException 
@@ -120,12 +123,33 @@ public class Game extends TimerTask
     @Override
     public void run() 
     {
-        speelveld.update();
-        
-        for(int i = 0; i<spelers.length; i++)
+        if(speelveld.getRound() <= 10)
         {
-            spelers[i].update();
-            spelers[i].updateSpeelveld(speelveld);
+            speelveld.update();
+        
+            for(int i = 0; i<spelers.length; i++)
+            {
+                spelers[i].update();
+                spelers[i].updateSpeelveld(speelveld);
+            }
+
+            for(Toeschouwer t : this.toeschouwers)
+            {
+                t.updateSpeelveld(speelveld);
+            }
+        }
+        else{
+            if(!speelveld.isWaiting())
+            {
+                //shit voor update rating en score
+                //notify spelers en spectators game close
+                //kill objecten en shit in lobby
+                //nog andere shit misschien
+            }
+            else
+            {
+                speelveld.update();
+            }
         }
     }  
     

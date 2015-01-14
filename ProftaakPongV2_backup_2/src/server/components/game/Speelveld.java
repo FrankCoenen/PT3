@@ -28,6 +28,11 @@ public class Speelveld implements Serializable{
     private transient boolean waiting;
     private int waitTime;
     
+    public boolean isWaiting()
+    {
+        return this.waiting;
+    }
+    
     public Speelveld(Speler[] spelers)
     {     
         this.sides = new LineSide[6];

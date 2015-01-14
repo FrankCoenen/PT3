@@ -64,6 +64,13 @@ public class GameLobby
             
         }
     }
+    
+    public void addSpectators(Persoon spectators)
+    {
+        this.spectators.add(spectators);
+        System.out.println("Speler toegevoegd aan GameLobby: " + spectators.getGebruikersnaam());
+        this.updateGUI();
+    }
 
     public int getSpotsLeft() {
         return spotsLeft;
@@ -85,13 +92,7 @@ public class GameLobby
     {
         return spectators;
     }
-
-    public void addSpectators(Persoon spectators)
-    {
-        this.spectators.add(spectators);
-        this.updateGUI();
-    }
-
+    
     public void updateGUI()
     {
         ArrayList<String> personen = new ArrayList<>();
@@ -148,6 +149,16 @@ public class GameLobby
                 
                 t.setPlayerNr(game.addSpeler(t));
                 System.out.println("GameLobby speler toevoegen aan game: " + s.getGebruikersnaam());
+                
+                s.notifyGameStart(t);
+            }
+            
+            for(Persoon s : this.spectators)
+            {
+                Toeschouwer t = s.getToeschouwer(game);
+                System.out.println("startGame in GameLobby voor Toeschouwer: "+ t.getGebruikersnaam());
+                
+                game.addToeschouwer(t);
                 
                 s.notifyGameStart(t);
             }

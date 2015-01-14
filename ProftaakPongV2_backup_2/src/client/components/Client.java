@@ -8,6 +8,7 @@ package client.components;
 
 import client.communications.ChatBoxListener;
 import client.gui.GameFXController;
+import client.gui.LeaderboardFXController;
 import client.gui.LobbyFXController;
 import client.gui.LoginFXController;
 import java.rmi.NotBoundException;
@@ -39,6 +40,7 @@ public class Client extends UnicastRemoteObject implements IClient
     private static LoginFXController loginFXController;
     private static LobbyFXController lobbyFXController;
     private static GameFXController gameFXController;
+    private static LeaderboardFXController leaderboardFXController;
     
     private static ChatBoxListener lobbyChatListener;
     private static ChatBoxListener gameChatListener;
@@ -59,7 +61,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         try
         {
-            registry = LocateRegistry.getRegistry("192.168.1.21", 1100);
+            registry = LocateRegistry.getRegistry("localhost", 1100);
         }
         catch(RemoteException e)
         {
@@ -82,6 +84,16 @@ public class Client extends UnicastRemoteObject implements IClient
             INSTANCE = new Client();
         }
         loginFXController = controller;
+        return INSTANCE;
+    }
+    
+    public static Client getInstance(LeaderboardFXController controller) throws RemoteException
+    {
+        if(INSTANCE == null)
+        {
+            INSTANCE = new Client();
+        }
+        leaderboardFXController = controller;
         return INSTANCE;
     }
     

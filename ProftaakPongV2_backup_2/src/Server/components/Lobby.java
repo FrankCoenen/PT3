@@ -190,6 +190,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
             }
         }
     }
+    
     public void updateGameLobbys()
     {
         List<String> gameList = new ArrayList();
