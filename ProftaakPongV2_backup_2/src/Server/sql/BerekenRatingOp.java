@@ -39,7 +39,7 @@ public class BerekenRatingOp extends DatabaseConnector implements Callable<Boole
 
         try {
             
-            String query = "SELECT * FROM rating WHERE GEBRUIKERSNAAM = ?";
+            String query = "SELECT * FROM score WHERE GEBRUIKERSNAAM = ?";
             PreparedStatement prest = conn.prepareStatement(query);
             prest.setString(1, username);
 
@@ -65,7 +65,7 @@ public class BerekenRatingOp extends DatabaseConnector implements Callable<Boole
                 dec.format(scoreResult);
             }
 
-            String query2 = "UPDATE rating SET round1 = ?, round2 = ?, round3 = ?, round4 = ?, round5 = ?, WHERE GEBRUIKERSNAAM = ?";
+            String query2 = "UPDATE score SET round1 = ?, round2 = ?, round3 = ?, round4 = ?, round5 = ?, WHERE GEBRUIKERSNAAM = ?";
             PreparedStatement prest2 = conn.prepareStatement(query2);
             prest2.setInt(1, newRonde);
             prest2.setInt(2, ronde2Result);

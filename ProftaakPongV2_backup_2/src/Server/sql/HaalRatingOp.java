@@ -42,7 +42,7 @@ public class HaalRatingOp extends DatabaseConnector implements Callable<Double>
         
         try
         {
-            String query = "SELECT score FROM rating WHERE GEBRUIKERSNAAM = ?";
+            String query = "SELECT score FROM score WHERE GEBRUIKERSNAAM = ?";
             PreparedStatement prest = conn.prepareStatement(query);
             prest.setString(1, username);
             

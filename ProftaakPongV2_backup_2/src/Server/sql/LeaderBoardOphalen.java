@@ -39,7 +39,7 @@ public class LeaderBoardOphalen extends DatabaseConnector implements Callable<Ar
         }
 
         try {
-            String query = "SELECT gebruikersnaam, score FROM rating ORDER BY score DESC";
+            String query = "SELECT gebruikersnaam, score FROM score ORDER BY score DESC";
             PreparedStatement prest = conn.prepareStatement(query);
 
             prest.execute();

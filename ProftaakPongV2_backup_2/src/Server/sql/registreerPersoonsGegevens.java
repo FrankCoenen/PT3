@@ -42,15 +42,13 @@ public class registreerPersoonsGegevens extends DatabaseConnector implements Run
         
         try
         {
-            String query = "INSERT INTO persoon (GEBRUIKERSNAAM, WACHTWOORD, RATING)" 
-                    + " values (?,?,?)";
+            String query = "INSERT INTO persoon (GEBRUIKERSNAAM, WACHTWOORD)" 
+                    + " values (?,?)";
             String Invoerwachtwoord = wachtwoord;
             String Invoergebruikersnaam = username;
-            int rating = 0;
             PreparedStatement prest = conn.prepareStatement(query);
             prest.setString(1, Invoergebruikersnaam);
             prest.setString(2, Invoerwachtwoord);
-            prest.setInt(3, rating);
             
             prest.execute();
         }
