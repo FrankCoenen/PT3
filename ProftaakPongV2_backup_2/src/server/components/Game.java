@@ -27,6 +27,9 @@ public class Game extends TimerTask
     private ArrayList<Toeschouwer> toeschouwers;
     private AI[] ai;
     private Timer gameTimer;
+    private Speler speler;
+    private Speler speler2;
+    private Speler speler3;
     
     private Speelveld speelveld;
     
@@ -141,10 +144,31 @@ public class Game extends TimerTask
         else{
             if(!speelveld.isWaiting())
             {
-                //shit voor update rating en score
-                //notify spelers en spectators game close
-                //kill objecten en shit in lobby
-                //nog andere shit misschien
+                for(Speler s : spelers){
+                    if(speler == null)
+                    {
+                        speler = s;
+                    }
+                    else if( speler2 == null)
+                    {
+                        speler2 = s;
+                    }
+                    else if(speler3 == null)
+                    {
+                        speler3 = s;
+                    }   
+                }
+                try {
+                    speler.berekenEindScore(speler2.getScore(), speler3.getScore());
+                    speler2.berekenEindScore(speler.getScore(), speler3.getScore());
+                    speler3.berekenEindScore(speler.getScore(), speler2.getScore());
+                    //shit voor update rating en score
+                    //notify spelers en spectators game close
+                    //kill objecten en shit in lobby
+                    //nog andere shit misschien
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             else
             {

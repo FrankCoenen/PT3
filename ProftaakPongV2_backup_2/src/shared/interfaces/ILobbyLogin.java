@@ -17,4 +17,5 @@ public interface ILobbyLogin extends Remote
 {
     public ILobbySignedIn login(IClient client, String naam, String wachtwoord) throws RemoteException;
     public boolean register(String naam, String wachtwoord) throws RemoteException; 
+    public Boolean nieuweScore(String Gebruikersnaam, int Score) throws RemoteException;
 }

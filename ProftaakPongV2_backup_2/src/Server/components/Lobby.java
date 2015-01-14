@@ -6,8 +6,8 @@
 
 package server.components;
 
-import server.sql.controleerPersoonsGegevens;
-import server.sql.registreerPersoonsGegevens;
+import Server.sql.BerekenRatingOp;
+import Server.sql.HaalRatingOp;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -20,6 +20,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.sql.controleerPersoonsGegevens;
+import server.sql.registreerPersoonsGegevens;
 import shared.interfaces.IClient;
 import shared.interfaces.ILobbyLogin;
 import shared.interfaces.ILobbySignedIn;
@@ -236,6 +238,33 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
 
     public void setGames(List<GameLobby> games) {
         this.games = games;
+    }
+    public Boolean nieuweScore(String Gebruikersnaam, int Score) throws RemoteException
+    {
+        try{
+        BerekenRatingOp bro = new BerekenRatingOp(Gebruikersnaam,Score);
+        ExecutorService task = Executors.newSingleThreadExecutor();
+        Future<Boolean> future = task.submit(bro);
+        return future.get();
+        }
+        catch(InterruptedException  | ExecutionException e)
+        {
+            return false;
+        }
+        
+    }
+
+    public double getRating(String Gebruikersnaam) throws RemoteException {
+        try {
+            HaalRatingOp haalOp = new HaalRatingOp(Gebruikersnaam);
+            ExecutorService task = Executors.newSingleThreadExecutor();
+            Future<Double> future = task.submit(haalOp);
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            
+        } finally {
+            return 99.9;
+        }
     }
     
     

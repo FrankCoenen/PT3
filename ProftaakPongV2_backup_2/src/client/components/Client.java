@@ -491,4 +491,13 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void toonLeaderboard(){
+        try{
+        lobby.getRating(lobby.showGebruikersNaam());
+        }
+        catch(RemoteException e){
+            
+        }
+    }
 }

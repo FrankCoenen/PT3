@@ -28,7 +28,7 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
 {
     protected transient IClient client;
     private String naam;
-    private transient Lobby lobby;
+    protected transient Lobby lobby;
     private transient GameLobby gameLobby;
     
     public Persoon(IClient client, String naam, Lobby lobby) throws RemoteException
@@ -180,6 +180,11 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     public String getType()
     {
         return "persoon";
+    }
+
+    @Override
+    public double getRating(String Gebruikersnaam) throws RemoteException {
+        return lobby.getRating(Gebruikersnaam);
     }
     
 }

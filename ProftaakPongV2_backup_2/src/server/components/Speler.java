@@ -138,4 +138,10 @@ public class Speler extends Persoon implements IGame
         return "speler";
     }
     
+    public boolean berekenEindScore(int score1, int score2) throws RemoteException
+    {
+        score = (score1 + score2 - 2*score)/8;
+        return super.lobby.nieuweScore(super.getGebruikersnaam(), score);
+    }
+    
 }
