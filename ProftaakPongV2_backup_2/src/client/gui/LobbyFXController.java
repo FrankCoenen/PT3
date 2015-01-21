@@ -97,6 +97,7 @@ public class LobbyFXController implements Initializable {
         {
             client = Client.getInstance(this);
             client.initializeLobbyChat();
+            client.requestClose("login");
         } 
         catch (RemoteException ex) 
         {
@@ -106,7 +107,7 @@ public class LobbyFXController implements Initializable {
         
     @Override
     public void initialize(URL location, ResourceBundle resources) 
-    {
+    {        
         
     }
     

@@ -65,14 +65,15 @@ public class BerekenRatingOp extends DatabaseConnector implements Callable<Boole
                 dec.format(scoreResult);
             }
 
-            String query2 = "UPDATE score SET round1 = ?, round2 = ?, round3 = ?, round4 = ?, round5 = ?, WHERE GEBRUIKERSNAAM = ?";
+            String query2 = "UPDATE score SET score = ?,round1 = ?, round2 = ?, round3 = ?, round4 = ?, round5 = ? WHERE GEBRUIKERSNAAM = ?";
             PreparedStatement prest2 = conn.prepareStatement(query2);
-            prest2.setInt(1, newRonde);
-            prest2.setInt(2, ronde2Result);
-            prest2.setInt(3, ronde3Result);
-            prest2.setInt(4, ronde4Result);
-            prest2.setInt(5, ronde5Result);
-            prest2.setString(6, username);
+            prest2.setDouble(1,scoreResult);
+            prest2.setDouble(2, newRonde);
+            prest2.setInt(3, ronde2Result);
+            prest2.setInt(4, ronde3Result);
+            prest2.setInt(5, ronde4Result);
+            prest2.setInt(6, ronde5Result);
+            prest2.setString(7, username);
             
             prest2.execute();
 

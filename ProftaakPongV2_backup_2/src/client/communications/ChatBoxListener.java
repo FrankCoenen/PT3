@@ -32,13 +32,22 @@ public class ChatBoxListener extends UnicastRemoteObject implements RemoteProper
     private ObservableList<ChatBericht> observerList;
     private Client cient;
     private static final String PROPERTY = "berichten";
+    private String type;
             
-    public ChatBoxListener(Client client, RemotePublisher rp) throws RemoteException
+    public ChatBoxListener(Client client, RemotePublisher rp, String type) throws RemoteException
     {
         berichten = new ArrayList();
         observerList = FXCollections.observableArrayList(berichten);     
         rp.addListener(this, PROPERTY);
-        client.updateLobbyChatBox(observerList);
+        if(type.equals("lobby"))
+        {
+            client.updateLobbyChatBox(observerList);
+        }
+        else
+        {
+            client.updateGameChatBox(observerList);
+        }
+        
     }
 
     @Override

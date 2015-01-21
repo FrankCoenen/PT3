@@ -11,6 +11,7 @@ import client.gui.GameFXController;
 import client.gui.LeaderboardFXController;
 import client.gui.LobbyFXController;
 import client.gui.LoginFXController;
+import java.rmi.NoSuchObjectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -22,6 +23,8 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import server.components.game.LineGoal;
+import server.components.game.LineSide;
 import server.components.game.Speelveld;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
@@ -57,11 +60,22 @@ public class Client extends UnicastRemoteObject implements IClient
     private static ObservableList gameLobbyList;
     private static ObservableList gameLobbyPlayerList;
     
+    private static boolean leftMove;
+    private static boolean rightMove;
+    
+    private static LineSide[] lines;
+    private static LineGoal[] goals;
+    
+    private static boolean gameFX = false;
+    private static boolean lobbyFX = false;
+    private static boolean loginFX = false;
+                    
+    
     private Client() throws RemoteException
     {
         try
         {
-            registry = LocateRegistry.getRegistry("localhost", 1100);
+            registry = LocateRegistry.getRegistry("10.94.14.226", 1099);
         }
         catch(RemoteException e)
         {
@@ -84,6 +98,7 @@ public class Client extends UnicastRemoteObject implements IClient
             INSTANCE = new Client();
         }
         loginFXController = controller;
+        loginFX = true;
         return INSTANCE;
     }
     
@@ -107,6 +122,7 @@ public class Client extends UnicastRemoteObject implements IClient
         getGebruikersNaam();
         updatePlayerListGui();
         updateGameLobbyListGUI();
+        lobbyFX = true;
         return INSTANCE;
     }
     
@@ -117,6 +133,9 @@ public class Client extends UnicastRemoteObject implements IClient
             INSTANCE = new Client();
         }
         gameFXController = controller;
+        leftMove = false;
+        rightMove = false;
+        gameFX = true;
         return INSTANCE;
     }
     
@@ -223,7 +242,7 @@ public class Client extends UnicastRemoteObject implements IClient
     public void initializeLobbyChat()
     {
         try {
-            lobbyChatListener = new ChatBoxListener(INSTANCE, lobby.getChatboxLobby());
+            lobbyChatListener = new ChatBoxListener(INSTANCE, lobby.getChatboxLobby(),"lobby");
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -235,7 +254,7 @@ public class Client extends UnicastRemoteObject implements IClient
     public void initializeGameChat()
     {
         try {
-            gameChatListener = new ChatBoxListener(INSTANCE, game.getChatboxRemote());
+            gameChatListener = new ChatBoxListener(INSTANCE, game.getChatboxRemote(), "game");
         } 
         catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
@@ -434,7 +453,7 @@ public class Client extends UnicastRemoteObject implements IClient
 
                     @Override
                     public void run() {
-                        gameFXController.drawSpeelveld(speelveld);
+                        gameFXController.drawSpeelveld(speelveld, lines, goals);
                     }
                 });
     }
@@ -467,7 +486,13 @@ public class Client extends UnicastRemoteObject implements IClient
     public void moveLeft()
     {
         try {
-            game.setMoveLeft(true);
+            
+            if (!leftMove)
+            {
+                game.setMoveLeft(true);
+                leftMove = true;
+                System.out.println("left");
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -475,7 +500,12 @@ public class Client extends UnicastRemoteObject implements IClient
     public void moveRight()
     {
         try {
-            game.setMoveRight(true);
+            if (!rightMove)
+            {
+                game.setMoveRight(true);
+                rightMove = true;
+                System.out.println("right");
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -485,6 +515,9 @@ public class Client extends UnicastRemoteObject implements IClient
         try {
             game.setMoveLeft(false);
             game.setMoveRight(false);
+            rightMove = false;
+            leftMove = false;
+            System.out.println("stop");
         }
         catch(RemoteException ex)
         {
@@ -498,6 +531,40 @@ public class Client extends UnicastRemoteObject implements IClient
         }
         catch(RemoteException e){
             
+        }
+    }
+
+    @Override
+    public void setLines(LineSide[] newlines, LineGoal[] newgoals) throws RemoteException {
+        lines = newlines;
+        goals = newgoals;
+    }
+    
+    public void requestClose(String controler)
+    {
+        if (controler.equals("login"))
+        {
+            loginFX = false;
+            loginFXController = null;
+        }
+        else if(controler.equals("game"))
+        {
+            gameFX = false;
+            gameFXController = null;
+        }
+        else if(controler.equals("lobby"))
+        {
+            lobbyFX = false;
+            lobbyFXController = null;
+        }
+        
+        if(!loginFX && !gameFX && !lobbyFX)
+        {
+            try {
+                UnicastRemoteObject.unexportObject(this, true);
+            } catch (NoSuchObjectException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

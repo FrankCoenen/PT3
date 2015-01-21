@@ -52,10 +52,12 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         TimerTask tTask = new TimerTask(){
 
             @Override
-            public void run() {
+            public void run() 
+            {
                 for(Persoon p : personen)
                 {
-                    try{
+                    try
+                    {
                         p.getClient().ping();
                     }
                     catch(Exception e)

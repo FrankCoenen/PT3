@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import shared.interfaces.IClient;
 
 /**
@@ -104,11 +106,24 @@ public class LoginFXController implements Initializable
             stage.setScene(scene);
                      
             //show the stage
-            stage.showAndWait();
+            stage.show();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                @Override
+                public void handle(WindowEvent event) {
+                    client.requestClose("lobby");
+                    Stage stage2 = (Stage) tf_inlogusername.getScene().getWindow();
+                    stage2.close(); 
+                    
+                }
+            });
+            Stage stage2 = (Stage) tf_inlogusername.getScene().getWindow();
+            stage2.hide();           
         }
         catch(IOException e)
         {
             System.out.println("loggin fx fout" + e.getMessage());
+            System.out.println(e.getMessage());
             e.getMessage();
         }
     }

@@ -100,6 +100,10 @@ public class Game extends TimerTask
         if(vol)
         {
             this.speelveld = new Speelveld(this.spelers);
+            for(Speler s : spelers)
+            {
+                s.sendLines(speelveld.getLines(), speelveld.getGoals());
+            }
         
             //GAMECLASS IMPLEMENTS TIMERTASK <-
             this.gameTimer.schedule(this,0,40); 
@@ -132,8 +136,13 @@ public class Game extends TimerTask
         
             for(int i = 0; i<spelers.length; i++)
             {
-                spelers[i].update();
-                spelers[i].updateSpeelveld(speelveld);
+                try {
+                    spelers[i].update();
+                    spelers[i].updateSpeelveld(speelveld);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    spelers[i] = spelers[i].becomeRobot();
+                }
             }
 
             for(Toeschouwer t : this.toeschouwers)
@@ -144,28 +153,23 @@ public class Game extends TimerTask
         else{
             if(!speelveld.isWaiting())
             {
-                for(Speler s : spelers){
-                    if(speler == null)
-                    {
-                        speler = s;
-                    }
-                    else if( speler2 == null)
-                    {
-                        speler2 = s;
-                    }
-                    else if(speler3 == null)
-                    {
-                        speler3 = s;
-                    }   
-                }
+                System.out.println("Server Game in Waiting attempting ScoreShit");
+                
                 try {
-                    speler.berekenEindScore(speler2.getScore(), speler3.getScore());
-                    speler2.berekenEindScore(speler.getScore(), speler3.getScore());
-                    speler3.berekenEindScore(speler.getScore(), speler2.getScore());
+                    int rating1 = (int)spelers[0].getRating(spelers[0].getGebruikersnaam());
+                    int rating2 = (int)spelers[1].getRating(spelers[1].getGebruikersnaam());
+                    int rating3 = (int)spelers[2].getRating(spelers[2].getGebruikersnaam());
+                    spelers[0].berekenEindScore(rating2, rating3);
+                    spelers[1].berekenEindScore(rating1, rating3);
+                    spelers[2].berekenEindScore(rating1, rating3);
                     //shit voor update rating en score
                     //notify spelers en spectators game close
                     //kill objecten en shit in lobby
                     //nog andere shit misschien
+                    gameTimer.cancel();
+                    gameTimer.purge();
+                    gameTimer = null;
+                    
                 } catch (RemoteException ex) {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }

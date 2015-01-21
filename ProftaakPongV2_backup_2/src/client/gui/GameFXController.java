@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -78,6 +80,7 @@ public class GameFXController implements Initializable {
     public GameFXController() {
         try {
             client = Client.getInstance(this);
+            client.initializeGameChat();
         } catch (RemoteException ex) {
             Logger.getLogger(LoginFXController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,15 +91,18 @@ public class GameFXController implements Initializable {
      *
      * @param chatBerichten
      */
-    public void updateChatBox(ObservableList<ChatBericht> chatBerichten) {
+    public void updateChatBox(ObservableList<ChatBericht> chatBerichten) 
+    {
         this.list_chatbox.setItems(chatBerichten);
     }
 
     /**
      * TOEGEVOEGD NAAR KIJKEN!
      */
-    public void plaatsChatBericht() {
+    public void plaatsChatBericht()
+    {
         client.sendChatBerichtGame(tf_chatbericht.getText());
+        tf_chatbericht.setText("");
     }
 
     public void setPlayerNames(String[] names) {
@@ -137,28 +143,21 @@ public class GameFXController implements Initializable {
 
     }
 
-    private void initialiseerKeyEvents(Stage stage) {
+    private void initialiseerKeyEvents(Stage stage) 
+    {
 
         EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent e) {
+            public void handle(KeyEvent e) 
+            {
                 if (e.getCode() == KeyCode.A || e.getCode() == KeyCode.LEFT) {
                     client.moveLeft();
-                    System.out.println("<-- Batje naar Links");
+                    
                 } else if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.RIGHT) {
                     client.moveRight();
-                    System.out.println("Batje naar Rechts -->");
-                } else if (e.getCode() == KeyCode.ENTER && tf_chatbericht.getText().trim().length() == 0) {
-                    System.out.println("Enter gedrukt, maar chatveld leeg!");
-                } else if (e.getCode() == KeyCode.ENTER && tf_chatbericht.getText().trim().length() > 1) {
-                    //methode voor zenden bericht
-                    //MOETEN WEL EEN ONDERSCHEID MAKEN TUSSEN SPECTATORS EN SPELERS
-
-                    plaatsChatBericht();
-
-                    System.out.println("Enter gedrukt, voor chatveld");
-                    System.out.println(tf_chatbericht.getText());
-                }
+                    
+                } 
+                
             }
         };
 //        
@@ -167,8 +166,14 @@ public class GameFXController implements Initializable {
             @Override
             public void handle(KeyEvent event) 
             {
-                client.stopMove();
-                System.out.println("Batje stoppen!");
+                if(event.getCode() == KeyCode.D || event.getCode() == KeyCode.LEFT ||  event.getCode() == KeyCode.A ||  event.getCode() == KeyCode.RIGHT)
+                {
+                    client.stopMove();
+                }
+                else if ( event.getCode() == KeyCode.ENTER && tf_chatbericht.getText().trim().length() > 1)
+                {
+                     plaatsChatBericht();
+                }
             }  
         };
 //               
@@ -245,12 +250,33 @@ public class GameFXController implements Initializable {
         System.out.println("Tekenen Succesvol");
     }
 
-    public void drawSpeelveld(Speelveld sv) 
+    public void drawSpeelveld(Speelveld sv, LineSide[] sides, LineGoal[] goals) 
     {
-        gc.setFill(Color.BLACK);
+        this.roundLabel.setText(Integer.toString(sv.getRound()));
+        
+        if(sv.getRound() == 10)
+        {
+            try 
+            {
+                Thread.sleep(1000);
+            } 
+            catch (InterruptedException ex) 
+            {
+                Logger.getLogger(GameFXController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            // get a handle to the stage
+            Stage stage = (Stage) roundLabel.getScene().getWindow();
+            // do what you have to do
+            stage.close();
+            client.requestClose("game");
+        }
+        else
+        {
+                    gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvasNew.getHeight(), canvasNew.getHeight());
 
-        for (LineSide l : sv.getLines()) 
+        for (LineSide l : sides) 
         {
             gc.setStroke(Color.WHITE);
             gc.strokeLine(l.getX1Position() * hoogte, l.getY1Position() * hoogte, l.getX2Position() * hoogte, l.getY2Position() * hoogte);
@@ -272,7 +298,7 @@ public class GameFXController implements Initializable {
 
             gc.fillOval((b.getXPos() - (b.getDiameter())) * hoogte, (b.getYPos() - (b.getDiameter())) * hoogte, b.getDiameter() * 2 * hoogte, b.getDiameter() * 2 * hoogte);
         }
-        for (LineGoal l : sv.getGoals()) {
+        for (LineGoal l : goals) {
             gc.setStroke(Color.CRIMSON);
             gc.strokeLine(l.getX1Position() * hoogte, l.getY1Position() * hoogte, l.getX2Position() * hoogte, l.getY2Position() * hoogte);
         }
@@ -280,6 +306,8 @@ public class GameFXController implements Initializable {
         Bal b = sv.getBall();
         gc.setFill(Color.WHITE);
         gc.fillOval((b.getXPos() - (b.getDiameter())) * hoogte, (b.getYPos() - (b.getDiameter())) * hoogte, b.getDiameter() * 2 * hoogte, b.getDiameter() * 2 * hoogte);
+        }
+
     }
 
 }

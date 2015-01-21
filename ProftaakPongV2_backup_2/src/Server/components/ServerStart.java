@@ -21,7 +21,7 @@ import shared.interfaces.ILobbyLogin;
 public class ServerStart 
 {
     
-    private static final int portNumber = 1100;
+    private static final int portNumber = 1099;
 
     // Set binding name for student administration
     private static final String bindingName = "lobby";

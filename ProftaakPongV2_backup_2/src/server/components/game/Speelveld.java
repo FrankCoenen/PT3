@@ -19,8 +19,8 @@ import javafx.scene.paint.Color;
  */
 public class Speelveld implements Serializable{
     
-    private LineSide[] sides;
-    private LineGoal[] goals;
+    private transient LineSide[] sides;
+    private transient LineGoal[] goals;
     private Batje[] batjes;
     private Bal bal;
     private int round;
@@ -40,7 +40,7 @@ public class Speelveld implements Serializable{
         this.batjes = new Batje[3];
         this.round = 0;
         this.waiting = false;
-        
+                
         this.generateBal();
         this.generateBatjes(spelers);
         this.generateLines(spelers);
@@ -167,7 +167,7 @@ public class Speelveld implements Serializable{
     {
         if(waiting)
         {
-            this.waitTime = waitTime - 30;
+            this.waitTime = waitTime - 40;
             if(this.waitTime <= 0)
             {
                 //NA GOAL <- WAITING TRUE, ALS WAITING TRUE IS
@@ -178,7 +178,6 @@ public class Speelveld implements Serializable{
         }
         else
         {
-            System.out.println("Speelveld.update");
             this.bal.move();
 
             this.checkCollisionBatjes();
@@ -190,7 +189,6 @@ public class Speelveld implements Serializable{
     //CHECKCOLLISIONBATJES
     public void checkCollisionBatjes()
     {
-        System.out.println("Check Collision Batjes");
         for(Batje b : batjes)
         {
             this.checkCollisionBatje(b);
@@ -200,7 +198,6 @@ public class Speelveld implements Serializable{
     //CHECKCOLLISIONBATJE
     public void checkCollisionBatje(Batje b)
     {
-        System.out.println("Check Collision Batje");
         double hoek = 0;
         double oldHoek = 0;
         double balX = this.bal.getXPosition();
@@ -266,7 +263,6 @@ public class Speelveld implements Serializable{
     
     public void checkColisionSides()
     {
-        System.out.println("Check Collision Sides");
         for(LineSide s : this.sides)
         {
             this.checkColisionSide(s);
@@ -316,7 +312,6 @@ public class Speelveld implements Serializable{
     }
     public void checkColisionGoals()
     {
-        System.out.println("Check Collision Goals");
         for(LineGoal g : this.goals)
         {
             this.checkColisionGoal(g);
@@ -375,11 +370,21 @@ public class Speelveld implements Serializable{
     public int getRound()
     {
         return this.round;
-    }       
+    }
     
     public void setWait(int sec)
     {
         this.waiting = true;
         this.waitTime = sec * (1000);
+    }
+    
+    public LineSide[] getLineSides()
+    {
+        return this.sides;
+    }
+    
+    public LineGoal[] getLineGoals()
+    {
+        return this.goals;
     }
 }

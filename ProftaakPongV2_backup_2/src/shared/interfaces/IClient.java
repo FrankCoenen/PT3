@@ -9,7 +9,8 @@ package shared.interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
-import server.components.Persoon;
+import server.components.game.LineGoal;
+import server.components.game.LineSide;
 import server.components.game.Speelveld;
 
 /**
@@ -24,4 +25,5 @@ public interface IClient extends Remote
     public boolean ping() throws RemoteException;
     public void startGameClient(IGame game) throws RemoteException;
     public void updateSpeelveld(Speelveld speelveld) throws RemoteException;
+    public void setLines(LineSide[] lines, LineGoal[] goals) throws RemoteException;
 }

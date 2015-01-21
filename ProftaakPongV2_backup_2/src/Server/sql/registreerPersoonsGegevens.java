@@ -10,6 +10,7 @@ import server.data.DatabaseConnector;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,7 +53,10 @@ public class registreerPersoonsGegevens extends DatabaseConnector implements Run
             
             prest.execute();
             
-            
+            DecimalFormat dec = new DecimalFormat("#.#");
+            int scoreResult = 0;
+            scoreResult = ((5 * 15) + (4 * 15) + (3 * 15) + (2 * 15) + (1 * 15)) / 15;
+                dec.format(scoreResult);
             String query2 = "INSERT INTO score (GEBRUIKERSNAAM, SCORE, ROUND1, ROUND2, ROUND3, ROUND4, ROUND5)" 
                     + " values (?,?,?,?,?,?,?)";
             PreparedStatement prest2 = conn.prepareStatement(query2);
