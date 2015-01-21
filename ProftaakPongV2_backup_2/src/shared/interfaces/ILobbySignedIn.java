@@ -8,6 +8,7 @@ package shared.interfaces;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import shared.observer.RemotePublisher;
 
 /**
@@ -84,4 +85,6 @@ public interface ILobbySignedIn extends Remote {
     public int getSpelerSize() throws RemoteException;
 
     public double getRating(String Gebruikersnaam) throws RemoteException;
+    
+    public ArrayList<String[]> getLeaderbord(String Gebruikersnaam) throws RemoteException;
 }
