@@ -196,7 +196,7 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin {
         this.games = games;
     }
 
-    public Boolean nieuweScore(String Gebruikersnaam, int Score) throws RemoteException {
+    public boolean nieuweScore(String Gebruikersnaam, int Score) throws RemoteException {
         try {
             BerekenRatingOp bro = new BerekenRatingOp(Gebruikersnaam, Score);
             ExecutorService task = Executors.newSingleThreadExecutor();

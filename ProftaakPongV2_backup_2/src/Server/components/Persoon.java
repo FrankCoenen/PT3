@@ -234,5 +234,11 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
         
         System.out.println(this.getGebruikersnaam() + ": " + "Removed from GameLobby: " + gamelobby);
     }
+
+    @Override
+    public Iterable<String[]> getLeaderbord(String showGebruikersNaam) throws RemoteException 
+    {
+        return this.lobby.getLeaderbord(showGebruikersNaam);
+    }
     
 }

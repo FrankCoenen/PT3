@@ -88,4 +88,6 @@ public interface ILobbySignedIn extends Remote {
     public void leaveLobby() throws RemoteException;
     
     public boolean inLobby() throws RemoteException;
+
+    public Iterable<String[]> getLeaderbord(String showGebruikersNaam) throws RemoteException;  
 }
