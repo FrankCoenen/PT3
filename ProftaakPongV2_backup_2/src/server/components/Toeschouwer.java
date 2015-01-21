@@ -20,9 +20,19 @@ import shared.serializable.ChatBericht;
  * @author Michael
  */
 public class Toeschouwer extends Persoon implements IGame
-{   
+{   /**
+ * variabelen met een logische naam
+ */
     private Game game;
     
+    /**
+     * constructoe
+     * @param client de client van de speler
+     * @param naam de gebruikersnaam
+     * @param lobby naam van de lobby
+     * @param game de game
+     * @throws RemoteException omdat de class remote is 
+     */
     public Toeschouwer(IClient client, String naam, Lobby lobby, Game game) throws RemoteException
     {
         super(client, naam, lobby);
@@ -65,6 +75,10 @@ public class Toeschouwer extends Persoon implements IGame
         return "toeschouwer";
     }
     
+    /**
+     * hier wordt het speelveld geupdate voor als er iets beweegd dat dat ook getoont wordt.
+     * @param speelveld 
+     */
     public void updateSpeelveld(Speelveld speelveld)
     {
         System.out.println("Versturen Speelveld: " + super.getGebruikersnaam());

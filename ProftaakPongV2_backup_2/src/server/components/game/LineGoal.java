@@ -15,13 +15,23 @@ import java.io.Serializable;
  */
 public class LineGoal implements Serializable
 {
-    
+    /**
+     * variabelen voor de coordinaten en een speler die transient is voor het oversturen
+     */
     private double x1;
     private double y1;
     private double x2;
     private double y2;
     private transient Speler speler;
     
+    /**
+     * de constructor
+     * @param x1 coordinaten
+     * @param y1 coordinaten
+     * @param x2 coordinaten
+     * @param y2 coordinaten
+     * @param speler  de speler
+     */
     public LineGoal(double x1, double y1, double x2, double y2, Speler speler)
     {
         this.x1 = x1;

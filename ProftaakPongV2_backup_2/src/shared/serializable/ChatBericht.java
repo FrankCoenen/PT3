@@ -15,12 +15,29 @@ import server.components.Persoon;
  * @author Michael
  */
 public class ChatBericht implements Serializable
-{
+{    
+    /**
+     * een string waarin tekst staat.
+     */
     private String tekst;
+    /**
+     * een calendar voor de datum die serializable kan worden gemaakt
+     */
     private transient Calendar datum;
+    /**
+     * een persoon die serializable kan worden gemaakt.
+     */
     private transient Persoon persoon;
+    /**
+     * string waarin de naam van de speler staat
+     */
     private String name;
 
+    /**
+     * constuctor
+     * @param tekst tekst van het chatbericht
+     * @param persoon de persoon die het verstuurd
+     */
     public ChatBericht(String tekst, Persoon persoon) {
         this.tekst = tekst;
         this.persoon = persoon;

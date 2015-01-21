@@ -20,8 +20,15 @@ import java.util.logging.Logger;
  */
 public class HaalRatingOp extends DatabaseConnector implements Callable<Double> 
 {
+    /**
+     * variabelen met een logische naam
+     */
     private final String username;
     
+    /**
+     * de constructor
+     * @param username de username van de speler 
+     */
     public HaalRatingOp(String username)       
     {
         super();

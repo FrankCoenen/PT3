@@ -19,6 +19,9 @@ import javafx.scene.paint.Color;
  */
 public class Speelveld implements Serializable{
     
+    /**
+     * variabelen met een logische naam
+     */
     private transient LineSide[] sides;
     private transient LineGoal[] goals;
     private Batje[] batjes;
@@ -28,11 +31,18 @@ public class Speelveld implements Serializable{
     private transient boolean waiting;
     private int waitTime;
     
+    /**
+     * kjken of het speelveld wacht
+     * @return een true als die wacht anders false
+     */
     public boolean isWaiting()
     {
         return this.waiting;
     }
-    
+    /**
+     * constructor
+     * @param spelers lijst met spelers
+     */
     public Speelveld(Speler[] spelers)
     {     
         this.sides = new LineSide[6];
@@ -66,6 +76,10 @@ public class Speelveld implements Serializable{
         return this.bal;
     }
         
+    /**
+     * methode voor het maken van de lijnen
+     * @param spelers  een array met spelers
+     */
     public void generateLines(Speler[] spelers)
     {
         double hoogte = ((lengte/2) * tan(Math.PI/3));
@@ -112,7 +126,10 @@ public class Speelveld implements Serializable{
         this.goals[1] = new LineGoal(goalXleftR,goalYleftR,goalXleftL,goalYleftL,spelers[1]);
         this.goals[2] = new LineGoal(goalXrightR,goalYrightR,goalXrightL,goalYrightL,spelers[2]);
     }
-    
+    /**
+     * het maken van de batjes
+     * @param spelers  een array van spelers
+     */
     public void generateBatjes(Speler[] spelers)
     {   
         
@@ -260,7 +277,9 @@ public class Speelveld implements Serializable{
         }
         
     }
-    
+    /**
+     * checkt collision met de zijkanten
+     */
     public void checkColisionSides()
     {
         for(LineSide s : this.sides)
@@ -268,7 +287,10 @@ public class Speelveld implements Serializable{
             this.checkColisionSide(s);
         }
     }
-
+     /**
+      * kijkt of de zijkanten geraakt worden
+      * @param s de lijn
+      */
     private void checkColisionSide(LineSide s) {
         boolean hit = true;
         
@@ -310,14 +332,21 @@ public class Speelveld implements Serializable{
         }
         
     }
+    /**
+     * checken voor collisions met de goals
+     */
     public void checkColisionGoals()
+   
     {
         for(LineGoal g : this.goals)
         {
             this.checkColisionGoal(g);
         }
     }
-
+    /**
+     * kijken of de bal de goallijn heeft geraakt.
+     * @param g  de goalline
+     */
     private void checkColisionGoal(LineGoal g) 
     {
         boolean hit = true;
@@ -371,18 +400,27 @@ public class Speelveld implements Serializable{
     {
         return this.round;
     }
-    
+    /**
+     * het wachten als er is gescoort dat de bal even in het midden wacht
+     * @param sec duur van het wachten
+     */
     public void setWait(int sec)
     {
         this.waiting = true;
         this.waitTime = sec * (1000);
     }
-    
+    /**
+     * haalt de zijkanten op
+     * @return een array met de zijkanten
+     */
     public LineSide[] getLineSides()
     {
         return this.sides;
     }
-    
+    /**
+     * haalt de goals op
+     * @return een array met de goals
+     */
     public LineGoal[] getLineGoals()
     {
         return this.goals;

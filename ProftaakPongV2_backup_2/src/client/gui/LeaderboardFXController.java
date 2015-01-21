@@ -50,6 +50,9 @@ public class LeaderboardFXController implements Initializable {
     private Client client;
     private ObservableList<String[]> leaderbord = FXCollections.observableArrayList();
     
+    /**
+     * constructor
+     */
     public LeaderboardFXController()
     {
         try 
@@ -72,7 +75,10 @@ public class LeaderboardFXController implements Initializable {
         }
         lv_ratings.setItems(leaderbord);
     }
-    
+    /**
+     * zet de naam van de speler in de lobby in een label zodat je kan als wie je bent ingelogt.
+     * @param text de naam van de speler
+     */
     public void setPlayerNameLobby(String text)
     {
         this.lbl_playername.setText(text);
