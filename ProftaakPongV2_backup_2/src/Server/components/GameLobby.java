@@ -52,7 +52,7 @@ public class GameLobby
 
     public void addSpelers(Persoon spelers) 
     {
-        if(spotsLeft > 0)
+        if(spotsLeft > 0 && this.hasStarted == false)
         {
             this.spelers.add(spelers);
             System.out.println("Speler toegevoegd aan GameLobby: " + spelers.getGebruikersnaam());
@@ -70,17 +70,26 @@ public class GameLobby
         this.spectators.add(spectators);
         System.out.println("Speler toegevoegd aan GameLobby: " + spectators.getGebruikersnaam());
         this.updateGUI();
+        
+        if(hasStarted)
+        {
+            Toeschouwer t = spectators.getToeschouwer(this.game);
+            this.game.addToeschouwer(t);
+            spectators.notifyGameStart(t);
+            t.sendLines(game.getSpeelveld().getLineSides(), game.getSpeelveld().getGoals());
+        }
     }
 
     public int getSpotsLeft() {
         return spotsLeft;
     }
 
-    public void setSpotsLeft(int spotsLeft) {
+    public void setSpotsLeft(int spotsLeft) 
+    {
         this.spotsLeft = spotsLeft;
     }
 
-    public Boolean isHasStarted() {
+    public Boolean getHasStarted() {
         return hasStarted;
     }
 
@@ -164,6 +173,7 @@ public class GameLobby
             }
             
             this.game.startGame();
+            this.hasStarted = true;
         }
     }
     

@@ -83,6 +83,8 @@ public class LobbyFXController implements Initializable {
     
     @FXML private Button btn_startgame;
     
+    @FXML private Button btn_leavelobby;
+    
     private Parent root;
     private Scene scene;
     private Stage stage;
@@ -197,6 +199,22 @@ public class LobbyFXController implements Initializable {
     public void StartGame(ActionEvent event)
     {
         this.client.startGame();
+    }
+    
+    public void leaveGameLobby(ActionEvent event)
+    {
+        this.lv_gameplayers.getItems().clear();
+        this.client.clientLeaveLobby();
+    }
+    
+    public void disableLeaveGameButton()
+    {
+        this.btn_leavelobby.setDisable(true);
+    }
+    
+    public void enableLeaveGameButton()
+    {
+        this.btn_leavelobby.setDisable(false);
     }
     
     public void openLeadboardGUI(ActionEvent event)

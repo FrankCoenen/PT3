@@ -154,6 +154,7 @@ public class Speler extends Persoon implements IGame
             Logger.getLogger(Speler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     public AI becomeRobot()
     {
         try {

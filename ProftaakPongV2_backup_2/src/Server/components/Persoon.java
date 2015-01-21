@@ -77,6 +77,11 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     @Override
     public void JoinGame(String gamename) 
     {
+        if(this.inLobby())
+        {
+            this.leaveLobby();
+        }
+        
         for(GameLobby l : this.lobby.getGames())
         {
             if(l.getName().equals(gamename))
@@ -185,6 +190,32 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     @Override
     public double getRating(String Gebruikersnaam) throws RemoteException {
         return lobby.getRating(Gebruikersnaam);
+    }
+    
+    //RETURN TRUE ALS HIJ IN LOBBY ZIT
+    @Override
+    public boolean inLobby()
+    {
+        if(this.gameLobby == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    @Override
+    public void leaveLobby()
+    {
+        String gamelobby = this.gameLobby.getName();
+
+        this.gameLobby.removeSpeler(this);
+        this.gameLobby.updateGUI();
+        this.gameLobby = null;
+        
+        System.out.println(this.getGebruikersnaam() + ": " + "Removed from GameLobby: " + gamelobby);
     }
     
 }

@@ -9,6 +9,8 @@ package server.components;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.components.game.LineGoal;
+import server.components.game.LineSide;
 import server.components.game.Speelveld;
 import shared.interfaces.IClient;
 import shared.interfaces.IGame;
@@ -75,6 +77,15 @@ public class Toeschouwer extends Persoon implements IGame
         catch (RemoteException ex) 
         {
             Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void sendLines(LineSide[] sides, LineGoal[] goals)
+    {
+        try {
+            client.setLines(sides, goals);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Speler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

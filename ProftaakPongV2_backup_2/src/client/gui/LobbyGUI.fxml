@@ -83,6 +83,9 @@
                         <Button fx:id="btn_spectategame" mnemonicParsing="false" onAction="#lobbySpectateGame" prefWidth="115.0" text="Spectate Game" />
                         <Separator prefWidth="200.0" />
                         <Button id="btn_startgame" fx:id="btn_startgame" mnemonicParsing="false" onAction="#StartGame" prefHeight="25.0" prefWidth="138.0" text="Start Game" />
+                        <Separator prefWidth="200.0" />
+                        <Button fx:id="btn_leavelobby" mnemonicParsing="false" onAction="#leaveGameLobby" prefHeight="25.0" prefWidth="130.0" text="Leave Lobby" />
+                        <Separator prefWidth="200.0" />
                         <Button fx:id="btn_logout" mnemonicParsing="false" onAction="#logUit" prefHeight="25.0" prefWidth="117.0" text="Log Out" />
                         <Text id="text_loggedin" fx:id="text_loggedin" strokeType="OUTSIDE" strokeWidth="0.0" text="Logged As:" />
                      </children>

@@ -122,6 +122,7 @@ public class Client extends UnicastRemoteObject implements IClient
         getGebruikersNaam();
         updatePlayerListGui();
         updateGameLobbyListGUI();
+        clientInLobby();
         lobbyFX = true;
         return INSTANCE;
     }
@@ -153,7 +154,6 @@ public class Client extends UnicastRemoteObject implements IClient
             {
                 openLobbyGUI();
             }
-            
         } 
         catch (RemoteException ex) 
         {
@@ -347,6 +347,7 @@ public class Client extends UnicastRemoteObject implements IClient
         try 
         {
             lobby.CreateGame();
+            clientInLobby();
         } 
         catch (RemoteException ex) 
         {
@@ -358,6 +359,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         try {
             lobby.JoinGame(gamename);
+            clientInLobby();
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -367,6 +369,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         try {
             lobby.spectateGame(gamename);
+            clientInLobby();
         } catch (RemoteException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -565,6 +568,45 @@ public class Client extends UnicastRemoteObject implements IClient
             } catch (NoSuchObjectException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    @Override
+    public void clientLeaveLobby()
+    {
+        try {
+            lobby.leaveLobby(); 
+            clientInLobby();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void clientInLobby()
+    {
+        try {
+            if(lobby.inLobby())
+            {
+                Platform.runLater(new Runnable(){
+
+                    @Override
+                    public void run() {
+                          lobbyFXController.enableLeaveGameButton();
+                    }
+                });
+            }
+            else
+            {
+                Platform.runLater(new Runnable(){
+
+                    @Override
+                    public void run() {
+                          lobbyFXController.disableLeaveGameButton();
+                    }
+                });
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

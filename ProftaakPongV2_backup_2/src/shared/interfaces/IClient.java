@@ -26,4 +26,5 @@ public interface IClient extends Remote
     public void startGameClient(IGame game) throws RemoteException;
     public void updateSpeelveld(Speelveld speelveld) throws RemoteException;
     public void setLines(LineSide[] lines, LineGoal[] goals) throws RemoteException;
+    public void clientLeaveLobby() throws RemoteException;
 }

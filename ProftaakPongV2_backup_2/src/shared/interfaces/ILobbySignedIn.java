@@ -84,4 +84,8 @@ public interface ILobbySignedIn extends Remote {
     public int getSpelerSize() throws RemoteException;
 
     public double getRating(String Gebruikersnaam) throws RemoteException;
+    
+    public void leaveLobby() throws RemoteException;
+    
+    public boolean inLobby() throws RemoteException;
 }
