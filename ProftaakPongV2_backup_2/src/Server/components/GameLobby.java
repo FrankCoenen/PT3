@@ -26,6 +26,7 @@ public class GameLobby
     private Boolean hasStarted;
     private List<Persoon> spectators;
     private Game game;
+    private Persoon creator;
     
     public GameLobby(Persoon creator)
     {
@@ -34,8 +35,14 @@ public class GameLobby
         this.spelers = new ArrayList();
         this.spotsLeft = 3;
         this.hasStarted=false;
+        this.creator = creator;
         this.addSpelers(creator);
         game = null;
+    }
+    
+    
+    public Persoon getCreator() {
+        return creator;
     }
 
     public String getName() {
@@ -181,5 +188,12 @@ public class GameLobby
     {
         this.spelers.remove(p);
         this.spotsLeft++;
+        
+        p.leaveGameLobby();
+        
+        if(spelers.size() == 0)
+        {
+            p.removeLobby(this);
+        }
     }
 }

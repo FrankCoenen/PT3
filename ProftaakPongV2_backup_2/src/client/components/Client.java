@@ -76,7 +76,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         try
         {
-            registry = LocateRegistry.getRegistry("145.144.243.94", 1099);
+            registry = LocateRegistry.getRegistry("145.144.243.150", 1099);
         }
         catch(RemoteException e)
         {

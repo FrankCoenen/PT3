@@ -67,7 +67,6 @@ public class HaalRatingOp extends DatabaseConnector implements Callable<Double>
         finally
         {
             super.verbindingverbrekenmetDatabase();
-            System.out.println("Verbinding verbroken met Database, Inlog");
         }
 
         return null;

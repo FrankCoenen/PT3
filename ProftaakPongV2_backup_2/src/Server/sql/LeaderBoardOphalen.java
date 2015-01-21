@@ -63,7 +63,6 @@ public class LeaderBoardOphalen extends DatabaseConnector implements Callable<Ar
             e.getMessage();
         } finally {
             super.verbindingverbrekenmetDatabase();
-            System.out.println("Verbinding verbroken met Database, Inlog");
         }
 
         return mainArray;

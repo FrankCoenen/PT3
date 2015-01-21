@@ -89,7 +89,6 @@ public class BerekenRatingOp extends DatabaseConnector implements Callable<Boole
             e.getMessage();
         } finally {
             super.verbindingverbrekenmetDatabase();
-            System.out.println("Verbinding verbroken met Database, Inlog");
         }
 
         return false;

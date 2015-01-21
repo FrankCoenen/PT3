@@ -173,11 +173,25 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin {
         }
     }
 
-    public GameLobby createGame(Persoon p) {
-        GameLobby gl = new GameLobby(p);
-        games.add(gl);
-        updateGameLobbys();
-        return gl;
+    public GameLobby createGame(Persoon p) 
+    {
+        boolean bestaatal = false;
+
+        for (GameLobby g : this.games) {
+            if (g.getCreator().getGebruikersnaam() == p.getGebruikersnaam()) {
+                bestaatal = true;
+            }
+
+        }
+
+        if (bestaatal == false) {
+            GameLobby gl = new GameLobby(p);
+            games.add(gl);
+            updateGameLobbys();
+            return gl;
+        }
+
+        return null;
     }
 
     public List<Persoon> getPersonen() {
@@ -229,6 +243,18 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin {
             return future.get();
         } catch (InterruptedException | ExecutionException e) {
             return null;
+        }
+    }
+
+    public void removeLobby(GameLobby aThis) 
+    {
+        for(GameLobby g : this.games)
+        {
+            if(g.getName().equals(aThis.getName()))
+            {
+                this.games.remove(g);
+                this.updateGameLobbys();
+            }
         }
     }
 

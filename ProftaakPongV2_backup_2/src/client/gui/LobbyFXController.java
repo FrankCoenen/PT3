@@ -175,9 +175,10 @@ public class LobbyFXController implements Initializable {
     }
     
     
-    public void logUit()
+    public void logUit(ActionEvent event)
     {
-        
+        this.btn_logout.setVisible(false);
+        this.text_loggedin.setText("YOU CAN'T LEAVE");
     }
     
     public void disableStartGameButton()

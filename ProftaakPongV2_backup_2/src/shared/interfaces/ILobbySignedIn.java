@@ -9,6 +9,7 @@ package shared.interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import server.components.GameLobby;
 import shared.observer.RemotePublisher;
 
 /**
@@ -91,4 +92,6 @@ public interface ILobbySignedIn extends Remote {
     public boolean inLobby() throws RemoteException;
 
     public ArrayList<String[]> getLeaderbord(String showGebruikersNaam) throws RemoteException;
+    
+    public void removeLobby(GameLobby aThis) throws RemoteException;
 }

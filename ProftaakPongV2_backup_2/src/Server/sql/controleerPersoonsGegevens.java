@@ -94,7 +94,6 @@ public class controleerPersoonsGegevens extends DatabaseConnector implements Cal
         finally
         {
             super.verbindingverbrekenmetDatabase();
-            System.out.println("Verbinding verbroken met Database, Inlog");
         }
 
         return false;

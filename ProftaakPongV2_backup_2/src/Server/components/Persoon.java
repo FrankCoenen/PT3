@@ -74,14 +74,14 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     @Override
     public boolean CreateGame() 
     {
-        if (this.gameLobby == null)
+        if(this.inLobby())
         {
-            this.gameLobby = lobby.createGame(this);
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            this.gameLobby = lobby.createGame(this);
+            return true;
         }
     }
 
@@ -223,7 +223,7 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
             return true;
         }
     }
-    
+        
     @Override
     public void leaveLobby()
     {
@@ -240,6 +240,17 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     public ArrayList<String[]> getLeaderbord(String showGebruikersNaam) throws RemoteException 
     {
         return this.lobby.getLeaderbord(showGebruikersNaam);
+    }
+
+    @Override
+    public void removeLobby(GameLobby aThis) 
+    {
+        lobby.removeLobby(aThis);
+    }
+    
+    public void leaveGameLobby()
+    {
+        this.gameLobby = null;
     }
     
 }
