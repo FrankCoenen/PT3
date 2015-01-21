@@ -76,7 +76,7 @@ public class Client extends UnicastRemoteObject implements IClient
     {
         try
         {
-            registry = LocateRegistry.getRegistry("10.94.14.226", 1099);
+            registry = LocateRegistry.getRegistry("145.144.243.94", 1099);
         }
         catch(RemoteException e)
         {
@@ -529,15 +529,18 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
     
-    public ArrayList<String[]> toonLeaderboard(){
+    public ArrayList<String[]> toonLeaderboard()
+    {
         ArrayList<String[]> returnvalue = new ArrayList<String[]>();
         try{
         String eigenNaam = lobby.showGebruikersNaam();
         String eigenScore = Double.toString(lobby.getRating(eigenNaam));
         String[] array = new String[2];
-        array[1] = eigenNaam;
-        array[2] = eigenScore;
+        array[0] = eigenNaam;
+        array[1] = eigenScore;
+        
         returnvalue.add(array);
+        
         for(String[] s : lobby.getLeaderbord(lobby.showGebruikersNaam()))
         {
         returnvalue.add(s);

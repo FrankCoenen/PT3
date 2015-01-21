@@ -9,7 +9,7 @@
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.LeaderboardFXController">
    <left>
-      <SplitPane dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <items>
             <Label id="lbl_playername" fx:id="lbl_playername" text="Player Name" />
             <Label id="lbl_chat" text="Search" />
@@ -55,7 +55,7 @@
          <items>
             <SplitPane prefHeight="200.0" prefWidth="200.0">
                <items>
-                  <ListView fx:id="lv_lobbyplayers" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="lv_ratings" prefHeight="200.0" prefWidth="200.0" />
                </items>
             </SplitPane>
          </items>

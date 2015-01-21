@@ -32,9 +32,11 @@ public class LeaderBoardOphalen extends DatabaseConnector implements Callable<Ar
      * constructor
      * @param username de username van de gebruiker
      */
-    public LeaderBoardOphalen(String username) {
+    public LeaderBoardOphalen(String username) 
+    {
         super();
         this.username = username;
+        mainArray = new ArrayList<String[]>();
     }
 
     @Override
@@ -53,7 +55,8 @@ public class LeaderBoardOphalen extends DatabaseConnector implements Callable<Ar
 
             ResultSet res = prest.getResultSet();
 
-            while (res.next()) {
+            while (res.next()) 
+            {
                 mainArray.add(new String[]{res.getString("gebruikersnaam"), Double.toString(res.getDouble("score"))});
             }
         } catch (SQLException e) {

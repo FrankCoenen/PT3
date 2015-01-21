@@ -48,7 +48,7 @@ public class LeaderboardFXController implements Initializable {
  
        
     private Client client;
-    private ObservableList<String[]> leaderbord = FXCollections.observableArrayList();
+    private ObservableList<String> leaderbord = FXCollections.observableArrayList();
     
     /**
      * constructor
@@ -71,7 +71,7 @@ public class LeaderboardFXController implements Initializable {
         leaderbord.clear();
         for(String[] s : client.toonLeaderboard())
         {
-            leaderbord.add(s);
+            leaderbord.add(s[0]+"      "+s[1]);
         }
         lv_ratings.setItems(leaderbord);
     }

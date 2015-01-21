@@ -9,6 +9,7 @@ package server.components;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.components.Game;
@@ -236,7 +237,7 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
     }
 
     @Override
-    public Iterable<String[]> getLeaderbord(String showGebruikersNaam) throws RemoteException 
+    public ArrayList<String[]> getLeaderbord(String showGebruikersNaam) throws RemoteException 
     {
         return this.lobby.getLeaderbord(showGebruikersNaam);
     }
