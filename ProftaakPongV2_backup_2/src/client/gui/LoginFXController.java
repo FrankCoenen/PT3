@@ -36,7 +36,7 @@ import shared.interfaces.IClient;
  */
 public class LoginFXController implements Initializable 
 {
-    //INLOGGUI FXML
+    //INLOGGUI FXML met de buttons ze hebben een logische naam zodat je weet waar ze voorzijn
     @FXML private
     TextField tf_inlogusername;
     
@@ -71,7 +71,13 @@ public class LoginFXController implements Initializable
             Logger.getLogger(LoginFXController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * bij deze methodes worden de username en wachtwoord uit de tekstboxes kunnen halen
+     * en deze worden dan vergeleken met die in de DB komen ze overeen dan ben je ingelogd
+     * zo niet dan krijg je een foutmelding
+     * @param event als iemand op de knop register drukt
+     */
     public final void loginPersoon(Event event)
     {
         String username = tf_inlogusername.getText();
@@ -80,6 +86,12 @@ public class LoginFXController implements Initializable
         client.logIn(username, password);
     }
 
+    /**
+     * bij deze methodes worden de username en wachtwoord uit de tekstboxes kunnen halen
+     * en deze worden dan in de DB gezet.
+     * @param event als iemand op de knop register drukt
+     * @throws IOException 
+     */
     public void registerPersoon(Event event) throws IOException 
     {
         String username = tf_inlogusername.getText();
@@ -87,7 +99,9 @@ public class LoginFXController implements Initializable
         
         client.register(username, password);
     }
-    
+    /**
+     * opent de lobbyGUI als je bent ingelogd.
+     */
     public void openLobbyGUI() 
     {
         try

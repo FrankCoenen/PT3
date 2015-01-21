@@ -20,9 +20,17 @@ import java.util.logging.Logger;
  */
 public class controleerPersoonsGegevens extends DatabaseConnector implements Callable<Boolean> 
 {
+    /**
+     * Variabelen met een logische naam
+    **/
     private final String username;
     private final String wachtwoord;
     
+    /**
+     * constructor
+     * @param username de naam van de gebruiker
+     * @param wachtwoord het wachtwoord van de gebruiker
+     */
     public controleerPersoonsGegevens(String username, String wachtwoord)       
     {
         super();

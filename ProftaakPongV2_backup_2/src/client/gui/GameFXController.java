@@ -77,6 +77,9 @@ public class GameFXController implements Initializable {
 
     private Client client;
 
+    /**
+     * constructor
+     */
     public GameFXController() {
         try {
             client = Client.getInstance(this);
@@ -87,8 +90,8 @@ public class GameFXController implements Initializable {
     }
 
     /**
-     * TOEGEVOEGD NAAR KIJKEN!!
      *
+     * update de tekstbox waarin alle chatberichten staat als er een nieuw bericht bijkomt
      * @param chatBerichten
      */
     public void updateChatBox(ObservableList<ChatBericht> chatBerichten) 
@@ -97,7 +100,7 @@ public class GameFXController implements Initializable {
     }
 
     /**
-     * TOEGEVOEGD NAAR KIJKEN!
+     * Plaatst een chatbericht wat je net hebt getypt en op verzenden hebt gedrukt
      */
     public void plaatsChatBericht()
     {
@@ -105,6 +108,10 @@ public class GameFXController implements Initializable {
         tf_chatbericht.setText("");
     }
 
+    /**
+     * set de playername
+     * @param names de namen van alle spelers
+     */
     public void setPlayerNames(String[] names) {
 
     }
@@ -142,7 +149,10 @@ public class GameFXController implements Initializable {
         at.start();
 
     }
-
+/**
+ * initaliseert de keyevents
+ * @param stage het scherm
+ */
     private void initialiseerKeyEvents(Stage stage) 
     {
 
@@ -181,6 +191,9 @@ public class GameFXController implements Initializable {
         stage.addEventFilter(KeyEvent.KEY_RELEASED, keyReleased);
     }
 
+    /**
+     * Maakt de GUi
+     */
     public void start() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.hoogte = (int) screenSize.getHeight();
@@ -250,6 +263,12 @@ public class GameFXController implements Initializable {
         System.out.println("Tekenen Succesvol");
     }
 
+    /**
+     * tekent het speelveld wat de spelers te zien krijgen in-game.
+     * @param sv het speelveld
+     * @param sides de zijkanten van het speelveld
+     * @param goals de goals in het speelveld
+     */
     public void drawSpeelveld(Speelveld sv, LineSide[] sides, LineGoal[] goals) 
     {
         this.roundLabel.setText(Integer.toString(sv.getRound()));

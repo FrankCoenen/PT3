@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -46,7 +48,11 @@ public class LeaderboardFXController implements Initializable {
  
        
     private Client client;
+    private ObservableList<String[]> leaderbord = FXCollections.observableArrayList();
     
+    /**
+     * constructor
+     */
     public LeaderboardFXController()
     {
         try 
@@ -62,9 +68,17 @@ public class LeaderboardFXController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        
+        leaderbord.clear();
+        for(String[] s : client.toonLeaderboard())
+        {
+            leaderbord.add(s);
+        }
+        lv_ratings.setItems(leaderbord);
     }
-    
+    /**
+     * zet de naam van de speler in de lobby in een label zodat je kan als wie je bent ingelogt.
+     * @param text de naam van de speler
+     */
     public void setPlayerNameLobby(String text)
     {
         this.lbl_playername.setText(text);

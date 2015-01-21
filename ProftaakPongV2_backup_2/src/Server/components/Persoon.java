@@ -26,11 +26,21 @@ import shared.serializable.ChatBericht;
  */
 public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Serializable 
 {
+    /**
+     * variableen met een logische naam
+     */
     protected transient IClient client;
     private String naam;
     protected transient Lobby lobby;
     private transient GameLobby gameLobby;
     
+    /**
+     * constuctor
+     * @param client de client van de gebruiker
+     * @param naam de naam van de speler
+     * @param lobby lobby
+     * @throws RemoteException 
+     */
     public Persoon(IClient client, String naam, Lobby lobby) throws RemoteException
     {
         this.client = client;
@@ -173,6 +183,10 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
         }
     }
     
+    /**
+     * een notify voor als de game gestart is naar de andere clients
+     * @param game de game
+     */
     public void notifyGameStart(IGame game)
     {
         try {
@@ -181,7 +195,10 @@ public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Seri
             Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * het type dat de persoon op dit moment is
+     * @return 
+     */
     public String getType()
     {
         return "persoon";

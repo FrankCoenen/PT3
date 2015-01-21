@@ -17,6 +17,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -528,13 +529,24 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
     
-    public void toonLeaderboard(){
+    public ArrayList<String[]> toonLeaderboard(){
+        ArrayList<String[]> returnvalue = new ArrayList<String[]>();
         try{
-        lobby.getRating(lobby.showGebruikersNaam());
+        String eigenNaam = lobby.showGebruikersNaam();
+        String eigenScore = Double.toString(lobby.getRating(eigenNaam));
+        String[] array = new String[2];
+        array[1] = eigenNaam;
+        array[2] = eigenScore;
+        returnvalue.add(array);
+        for(String[] s : lobby.getLeaderbord(lobby.showGebruikersNaam()))
+        {
+        returnvalue.add(s);
+        }
         }
         catch(RemoteException e){
             
         }
+        return returnvalue;
     }
 
     @Override

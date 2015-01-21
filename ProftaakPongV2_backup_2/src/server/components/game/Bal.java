@@ -15,7 +15,9 @@ import java.io.Serializable;
  */
 public class Bal implements Serializable
 {
-    
+    /**
+     * variabelen met een logsche naam
+     */
     private transient double startXpos;
     private transient double startYpos;   
     
@@ -27,6 +29,14 @@ public class Bal implements Serializable
     private transient Batje batjeLast;
     private transient Speler latstHit;
     
+    /**
+     * constructor
+     * @param radius radius van de bal
+     * @param xPos coordinaten
+     * @param yPos coordinaten
+     * @param speed snelheid
+     * @param direction richting
+     */
     public Bal(double radius, double xPos, double yPos, double speed, double direction)
     {
         this.radius = radius;
@@ -54,13 +64,17 @@ public class Bal implements Serializable
         return this.radius;
     }
     
-    
+    /**
+     * hoe de bal beweegt in het veld
+     */
     public void move()
     {
        this.xPos += this.speed * Math.cos(Math.toRadians(direction));
        this.yPos += this.speed * Math.sin(Math.toRadians(direction));
     }
-    
+    /**
+     * als er gescoort is wordt de bal gereset naar het midden
+     */
     public void reset()
     {
         this.xPos = this.startXpos;
