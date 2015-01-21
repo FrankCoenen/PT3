@@ -69,19 +69,29 @@ public interface ILobbySignedIn extends Remote {
     public void spectateGame(String gamename) throws RemoteException;
     
     /**
-     * 
-     * @throws RemoteException 
+     * door deze methode kan je uitloggen hiermee wordt je uit de spelerslijst verwijderd.
+     * @throws RemoteException een exception voor als er iets fout gaat met het remote deel.
      */
     public void logOut() throws RemoteException;
     
     /**
-     * 
-     * @return
-     * @throws RemoteException 
+     * Met deze methode laten we de gebruikersnaam zien in de lobby
+     * @return een string met de gebruikersnaam.
+     * @throws RemoteException  een exception voor als er iets fout gaat met het remote deel.
      */
     public String showGebruikersNaam() throws RemoteException;
-    
+    /**
+     * Met deze methode halen we op hoeveel spelers er in de lobby zitten
+     * @return een int met een aantal spelers.
+     * @throws RemoteException een exception voor als er iets fout gaat met het remote deel.
+     */
     public int getSpelerSize() throws RemoteException;
-
+    /**
+     * Met deze methode halen we de rating op van een persoon. Dit doen we zodra de speler inlogt.
+     * en ook als een game is afgelopen want dan is de rating van een speler veranderd
+     * @param Gebruikersnaam de naam van de speler
+     * @return een double van wat de rating van de persoon is
+     * @throws RemoteException  een exception voor als er iets fout gaat met het remote deel.
+     */
     public double getRating(String Gebruikersnaam) throws RemoteException;
 }

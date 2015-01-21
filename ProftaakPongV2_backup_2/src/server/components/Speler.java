@@ -24,6 +24,9 @@ import shared.serializable.ChatBericht;
  */
 public class Speler extends Persoon implements IGame
 {
+    /**
+     * variabelen met een logische naam
+     */
     private final Game game;
     protected Batje batje;
     private int score;
@@ -32,7 +35,14 @@ public class Speler extends Persoon implements IGame
     private boolean moveRight = false;
     
     private int playerNr;
-    
+    /**
+     * constructor
+     * @param client client van de speler
+     * @param naam naam van de speler
+     * @param lobby lobby 
+     * @param game de game
+     * @throws RemoteException omdat het een remote class is 
+     */
     public Speler(IClient client, String naam, Lobby lobby, Game game) throws RemoteException
     {
         super(client, naam, lobby);
@@ -63,11 +73,16 @@ public class Speler extends Persoon implements IGame
         this.batje = batje;
     }
     
+    /**
+     * als je scoort komt er een punt bij
+     */
     public void scorePlus()
     {
         this.score++;
     }
-    
+    /**
+     * wordt er bij je gescoort dan gaat er een punt af
+     */
     public void scoreMin()
     {
         this.score--;
@@ -100,6 +115,9 @@ public class Speler extends Persoon implements IGame
         return this.score;
     }
 
+    /**
+     * update voor als je batje beweegt
+     */
     public void update() 
     {
         if(moveLeft)
@@ -112,7 +130,11 @@ public class Speler extends Persoon implements IGame
         }
     }
     
-    
+    /**
+     * update eht speelveld met de nieuwe posities van de batjes
+     * @param speelveld het speelveld
+     * @throws RemoteException omdat het een romote class is
+     */
     public void updateSpeelveld(Speelveld speelveld) throws RemoteException
     {
         System.out.println("Versturen Speelveld: " + super.getGebruikersnaam());
@@ -138,7 +160,13 @@ public class Speler extends Persoon implements IGame
     {
         return "speler";
     }
-    
+    /**
+     * het berekenen van de score ana het eind van een potje voor de nieuwe rating
+     * @param score1 score
+     * @param score2 score
+     * @return een boolean of het gelukt is of niet
+     * @throws RemoteException omdat de class remote is
+     */
     public boolean berekenEindScore(int score1, int score2) throws RemoteException
     {
         int rating = (int) this.getRating(super.getGebruikersnaam());
@@ -146,6 +174,11 @@ public class Speler extends Persoon implements IGame
         return super.lobby.nieuweScore(super.getGebruikersnaam(), berekening);
     }
     
+    /**
+     * over sturen van de zijde van het speelveld waarin je speelt
+     * @param sides de zijkanten
+     * @param goals  de goals
+     */
     public void sendLines(LineSide[] sides, LineGoal[] goals)
     {
         try {
@@ -154,6 +187,10 @@ public class Speler extends Persoon implements IGame
             Logger.getLogger(Speler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /**
+     * als er een speler in het midden van een game leaved neemt een AI het over
+     * @return 
+     */
     public AI becomeRobot()
     {
         try {

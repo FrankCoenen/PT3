@@ -27,13 +27,22 @@ import shared.serializable.ChatBericht;
  */
 public class ChatBoxListener extends UnicastRemoteObject implements RemotePropertyListener 
 {
-    
+    /**
+     * de variabelen met een logische naam
+     */
     private List<ChatBericht> berichten;
     private ObservableList<ChatBericht> observerList;
     private Client cient;
     private static final String PROPERTY = "berichten";
     private String type;
             
+    /**
+     * constructor
+     * @param client de client van de gebruiker
+     * @param rp remotepublisher
+     * @param type type chatboxlistener
+     * @throws RemoteException 
+     */
     public ChatBoxListener(Client client, RemotePublisher rp, String type) throws RemoteException
     {
         berichten = new ArrayList();

@@ -21,10 +21,17 @@ import java.util.logging.Logger;
  */
 public class LeaderBoardOphalen extends DatabaseConnector implements Callable<ArrayList<String[]>> {
 
+    /**
+     * variabelen met een logische naam
+     */
     private final String username;
     ArrayList<String[]> mainArray;
     String[] swagg = new String[2];
 
+    /**
+     * constructor
+     * @param username de username van de gebruiker
+     */
     public LeaderBoardOphalen(String username) {
         super();
         this.username = username;

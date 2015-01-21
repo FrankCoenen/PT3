@@ -20,9 +20,17 @@ import java.util.logging.Logger;
  */
 public class BerekenRatingOp extends DatabaseConnector implements Callable<Boolean> {
 
+    /**
+     * variabelen met een logische naam
+     */
     private final String username;
     private final int newRonde;
 
+    /**
+     * constructor
+     * @param username de naam van de gebruiker
+     * @param NewRonde de nieuwste ronde die wordt ingevoerd in de DB
+     */
     public BerekenRatingOp(String username, int NewRonde) {
         super();
         this.username = username;

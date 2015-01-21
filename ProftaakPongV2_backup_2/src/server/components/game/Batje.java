@@ -16,6 +16,9 @@ import javafx.scene.paint.Color;
  */
 public class Batje implements Serializable
 {
+    /**
+     * variabelen met een logische naam hue is ervoor zodat we de kleur kunnen oversturen
+     */
     private double radius;
     private double xPos;
     private double yPos;
@@ -27,6 +30,18 @@ public class Batje implements Serializable
     private transient Color color;
     private double hue;
     
+    /**
+     * constructor
+     * @param radius radbius batje
+     * @param xPos coordinaten
+     * @param yPos coordinaten
+     * @param speed snelheid
+     * @param direction richting 
+     * @param maxDistance hoever het batje kan bewegen
+     * @param distanceMoved hoever het batje is bewogen
+     * @param speler de speler van het batje
+     * @param color de kleur van het batje
+     */
     public Batje(double radius, double xPos, double yPos, double speed, double direction, double maxDistance, double distanceMoved, Speler speler, Color color)
     {
         this.radius = radius;
@@ -51,7 +66,9 @@ public class Batje implements Serializable
     {
         return hue;
     }
-
+    /**
+     * het naar links bewegen van het batje
+     */
     public void moveLeft() {
         if (distanceMoved > -maxDistance) 
         {
@@ -61,6 +78,9 @@ public class Batje implements Serializable
         }
     }
 
+    /**
+     * het naar rechts bewegen van het batje
+     */
     public void moveRight() {
         if (distanceMoved < maxDistance)
         {

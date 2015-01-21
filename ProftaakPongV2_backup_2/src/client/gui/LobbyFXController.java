@@ -91,6 +91,9 @@ public class LobbyFXController implements Initializable {
        
     private Client client;
     
+    /**
+     * de constuctor.
+     */
     public LobbyFXController()
     {
         try 
@@ -110,17 +113,32 @@ public class LobbyFXController implements Initializable {
     {        
         
     }
-    
+    /**
+     * laat de spelersnaam zien in de lobby.
+     * @param text de naam van de speler.
+     */
     public void setPlayerNameLobby(String text)
     {
         this.lbl_playername.setText(text);
     }
     
+    /**
+     * Met deze methode wordt een gamelobby aangemaakt die mensen kunnen joinen zitten er 3 spelers in 
+     * dan kan je het spel starten
+     * @param event de knop create game
+     * @throws IOException 
+     */
     public void lobbyCreateGame(Event event) throws IOException
     {
         client.createGameLobby();
     }
     
+    /**
+     * door deze methode kan je een aangemaakte lobby al joinen dit kan je doen door uit de listview
+     * op de desbetreffende game te drukken.
+     * @param event als je op de game drukt wordt de methode aangeroepen.
+     * @throws IOException 
+     */
     public void lobbyJoinGame(Event event) throws IOException
     {
         if(this.lv_games.getSelectionModel().getSelectedItem() == null)
@@ -133,7 +151,11 @@ public class LobbyFXController implements Initializable {
             client.joinGameLobby(gamename);
         }
     }
-    
+    /**
+     * door deze methode kan je een lobby gaan spectaten die al bestaad.
+     * @param event door op de knop spectate te drukken
+     * @throws IOException 
+     */
     public void lobbySpectateGame(Event event) throws IOException
     {
         if(this.lv_games.getSelectionModel().getSelectedItem() == null)
@@ -146,59 +168,91 @@ public class LobbyFXController implements Initializable {
             client.spectateGameLobby(gamename);
         }
     }
-    
+    /**
+     * als je een chatbericht wilt plaatsen
+     * @param event  de knop plaats bericht als je erop drukt wordt je bericht geplaatst.
+     */
     public void plaatsChatBericht(Event event)
     {
         client.sendChatBericht(tf_chatbericht.getText());
     }
-    
+    /**
+     * Als er een nieuw bericht wordt geplaatst wordt de lijst van chatberichten opgedate zodat
+     * de nieuwe berichten ook voor iedereen te zien zijn
+     * @param chatBerichten  de lijst van alle chatberichten
+     */
     public void updateChatBox(ObservableList<ChatBericht> chatBerichten)
     {
         this.list_chatbox.setItems(chatBerichten);
     }
-    
+    /**
+     * update de lijst van alle lobby spelers. Dit gebeurt er als iemand nieuws joint
+     * in de lobby.
+     * @param players de lijst met spelers die in de lobby zitten
+     */
     public void updateLobbyPlayers(ObservableList<String> players)
     {
         this.lv_lobbyplayers.setItems(players);
     }
-
+    /**
+    * update de gamelobbylijst voor als er een nieuwe gamelobby bijkomt.
+    * @param playerList 
+    */
     public void updateGameLobbys(ObservableList playerList) 
     {
         this.lv_games.setItems(playerList);
     }
-
+    /**
+     * update de lijst van de spelers die in de lobby zitten deze wordt aangeroepen
+     * als er iemand joint.
+     * @param gameLobbyPlayerList  de lijst met spelers in de gamelobby
+     */
     public void updateGameLobbyPlayers(ObservableList gameLobbyPlayerList) 
     {
         this.lv_gameplayers.setItems(gameLobbyPlayerList);
     }
     
-    
+    /**
+     * uitloggen
+     */
     public void logUit()
     {
         
     }
-    
+    /**
+     * zorg je ervoor dat je de game nog niet kan starten als er nog geen 3 spelers in zitten
+     */
     public void disableStartGameButton()
     {
         this.btn_startgame.setDisable(true);
     }
-    
+    /**
+     * zodra er 3 spelers zijn kan je de game pas starten
+     */
     public void enableStartGameButton()
     {
         this.btn_startgame.setDisable(false);
     }
-    
+    /**
+     * opent de gameGUI
+     */
     public void openGameGUI()
     {
         GameFXController nieuw = new GameFXController();
         nieuw.start();
     }
-        
+    /**
+     * Start de game als je op de startgame knop drukt.
+     * @param event de knop als je drukt van start game
+     */    
     public void StartGame(ActionEvent event)
     {
         this.client.startGame();
     }
-    
+    /**
+     * open de leaderboardGUI
+     * @param event als je drukt op de knop openleaderboard wordt deze GUI geopent.
+     */
     public void openLeadboardGUI(ActionEvent event)
     {
         URL location1 = LeaderboardFXController.class.getResource("LeaderboardGUI.fxml");

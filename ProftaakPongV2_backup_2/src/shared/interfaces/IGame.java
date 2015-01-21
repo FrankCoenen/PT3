@@ -32,11 +32,27 @@ public interface IGame extends Remote
     * @throws RemoteException omdat deze class remote extends
     */
     public RemotePublisher getChatboxRemote() throws RemoteException;
-    
+    /**
+     * Door  middel van deze methode wordt aan de server doorgegeven of het batje naar links beweegt.
+     * @param moveleft Je kan aan de waarde true of false zien het batje naar links beweegt.
+     * @throws RemoteException een exception voor als er iets fout gaat met het remote deel.
+     */
     public void setMoveLeft(boolean moveleft) throws RemoteException;
     
+    /**
+     * Door middel van deze methode wordt aan de server doorgegeven of het batje naar rechte beweegt.
+     *
+     * @param moveright Je kan aan de waarde true of false zien of het batje naar rechts beweegt.
+     * @throws RemoteException een exception voor als er iets fout gaat met het remote deel.
+     */
     public void setMoveRight(boolean moveright) throws RemoteException;
  
+    /**
+     * Met deze methode wordt het scherm gedraait op het scherm hierdoor ben jij zelf altijd de onderste speler
+     * Dit is fijn en voorkomt veel verwarring. Als toeschouwer staan altijd dezelfde kleuren op dezelfde plek.
+     * @return -
+     * @throws RemoteException een exception voor als er iets fout gaat met het remote deel.
+     */
     public int rotatePosition() throws RemoteException;
     
 }

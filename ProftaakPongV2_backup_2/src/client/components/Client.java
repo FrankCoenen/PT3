@@ -40,6 +40,9 @@ import shared.serializable.ChatBericht;
  */
 public class Client extends UnicastRemoteObject implements IClient
 {
+    /** 
+     * variabelen
+     */
     private static LoginFXController loginFXController;
     private static LobbyFXController lobbyFXController;
     private static GameFXController gameFXController;
@@ -70,7 +73,10 @@ public class Client extends UnicastRemoteObject implements IClient
     private static boolean lobbyFX = false;
     private static boolean loginFX = false;
                     
-    
+    /**
+     * de constructor
+     * @throws RemoteException voor als er een error optreed door het remotedeel 
+     */
     private Client() throws RemoteException
     {
         try
@@ -91,6 +97,12 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
     
+    /**
+     * haalt de instance op voor de LoginFXcontroller
+     * @param controller de controller
+     * @return een client
+     * @throws RemoteException voor als er een error optreed door het remotedeel 
+     */
     public static Client getInstance(LoginFXController controller) throws RemoteException
     {
         if(INSTANCE == null)
@@ -102,6 +114,12 @@ public class Client extends UnicastRemoteObject implements IClient
         return INSTANCE;
     }
     
+    /**
+     * haalt de instance op voor de LeaderboardFX controller
+     * @param controller de controller
+     * @return een client
+     * @throws RemoteException 
+     */
     public static Client getInstance(LeaderboardFXController controller) throws RemoteException
     {
         if(INSTANCE == null)
@@ -112,6 +130,12 @@ public class Client extends UnicastRemoteObject implements IClient
         return INSTANCE;
     }
     
+    /**
+     * haalt de instance op voor de lobbyFX controller
+     * @param controller de controller
+     * @return de client
+     * @throws RemoteException voor als er een error optreed door het remotedeel 
+     */
     public static Client getInstance(LobbyFXController controller) throws RemoteException
     {
         if(INSTANCE == null)
@@ -125,7 +149,12 @@ public class Client extends UnicastRemoteObject implements IClient
         lobbyFX = true;
         return INSTANCE;
     }
-    
+    /**
+     * haalt de intance op voor de GameFXcontroller
+     * @param controller de controller
+     * @return de client
+     * @throws RemoteException voor als er een error optreed door het remotedeel
+     */
     public static Client getInstance(GameFXController controller) throws RemoteException
     {
         if(INSTANCE == null)
@@ -139,6 +168,11 @@ public class Client extends UnicastRemoteObject implements IClient
         return INSTANCE;
     }
     
+    /**
+     * methode om in te loggen als de gegevens goed zijn wordt je ingelogt
+     * @param gebruikersnaam de persoon die probeert in te loggen
+     * @param wachtwoord het wachtwoord waarmee de persoon probeert in te loggen
+     */
     public void logIn(String gebruikersnaam, String wachtwoord)
     {
         try 
@@ -160,7 +194,11 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * hiermee kan je een nieuwe persoon aanmaken maar die moet wel een unieke username hebben.
+     * @param gebruikersnaam de gewenste username van de gebruiker deze moet uniek zijn
+     * @param wachtwoord het gewenste wachtwoord van de gebruiker.
+     */
     public void register(String gebruikersnaam, String wachtwoord)
     {
         try
@@ -174,6 +212,9 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
     
+    /**
+     * opent de lobbyGUI
+     */
     public void openLobbyGUI()
     {
         System.out.println("Probeert LobbyGUI te openen Platform.runLater");
@@ -186,7 +227,11 @@ public class Client extends UnicastRemoteObject implements IClient
             }
         });
     }
-    
+    /**
+     * update de list met chatberichten dit wordt gedaan als er een nieuw bericht wordt 
+     * geplaatst.
+     * @param list_cb list met alle chatberichten  
+     */
     public void updateLobbyChatBox(ObservableList<ChatBericht> list_cb)
     {
         System.out.println("Platform.runLater observable list adden");
@@ -216,7 +261,10 @@ public class Client extends UnicastRemoteObject implements IClient
             }
         });
     }
-    
+    /**
+     * Methode voor het verzenden van chatberichten 
+     * @param bericht het getypte bericht van de speler
+     */
     public void sendChatBericht(String bericht)
     {
         try {
@@ -227,8 +275,8 @@ public class Client extends UnicastRemoteObject implements IClient
     }
     
     /**
-     * TOEGEVOEGD NAAR KIJKEN!!
-     * @param bericht 
+     * voor het verzenden van chatberichten ingame
+     * @param bericht het getypte bericht van de gebruiker in het chatveld
      */
     public void sendChatBerichtGame(String bericht)
     {
@@ -238,7 +286,9 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * intializet de lobbychat
+     */
     public void initializeLobbyChat()
     {
         try {
@@ -249,7 +299,7 @@ public class Client extends UnicastRemoteObject implements IClient
     }
     
     /**
-     * TOEGEVOEGD NAAR KIJKEN!!
+     * initialiset de gamechat
      */
     public void initializeGameChat()
     {
@@ -271,7 +321,9 @@ public class Client extends UnicastRemoteObject implements IClient
         }
         
     }
-    
+  /**
+   * update de spelerslijst in de GUI. dit wordt gedaan als er een nieuwe speler bijkomt.
+   */  
     public static void updatePlayerListGui()
     {
         Platform.runLater(new Runnable(){
@@ -317,6 +369,10 @@ public class Client extends UnicastRemoteObject implements IClient
         }
     }
 
+    /**
+     * Update de lijst waarin alle gamelobbys instaan deze wordt aangeroepen als er een 
+     * nieuwe lobby bijkomt
+     */
     private static void updateGameLobbyListGUI() 
     {
         Platform.runLater(new Runnable(){
@@ -329,6 +385,10 @@ public class Client extends UnicastRemoteObject implements IClient
         });    
     }
 
+    /**
+     * Update de Lijst waarin alle spelers zijn zodat je die in de GUI kan zien
+     * dit wordt gedaan als er een nieuwe speler bijkomt
+     */
     private static void updateGameLobbyListPlayersGUI() 
     {
         Platform.runLater(new Runnable()
@@ -341,7 +401,9 @@ public class Client extends UnicastRemoteObject implements IClient
             }
         });    
     }
-    
+    /**
+     * maakte een nieuwe gamelobby aan als iemand op de knop creategame drukt
+     */
     public void createGameLobby()
     {
         try 
@@ -353,7 +415,10 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * hiermee kan je een al bestaande game joinen door erop te klikken
+     * @param gamename de naam van de game die je wilt joinen
+     */
     public void joinGameLobby(String gamename)
     {
         try {
@@ -362,7 +427,10 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * hiermee kan je een al bestaande game(lobby) specaten
+     * @param gamename de naam van de gamelobby 
+     */
     public void spectateGameLobby(String gamename)
     {
         try {
@@ -371,7 +439,9 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+   /**
+    * ophalen van de gebruikersnaam
+    */
     public static void getGebruikersNaam()
     {
         Platform.runLater(new Runnable() 
@@ -389,7 +459,10 @@ public class Client extends UnicastRemoteObject implements IClient
             }
         });
     }
-    
+    /**
+     * ophalen van de het aantal spelers die er zijn in een lobby
+     * @return het aantal spelers
+     */
     private int getSpelerSize()
     {
         try 
@@ -422,7 +495,10 @@ public class Client extends UnicastRemoteObject implements IClient
         
         return 0;
     }
-    
+    /**
+     * methode om de game te starten dit kan alleen maaar als er 3 spelers in de gamelobby
+     * zitten
+     */
     public void startGame()
     {
         try {
@@ -457,7 +533,11 @@ public class Client extends UnicastRemoteObject implements IClient
                     }
                 });
     }
-    
+    /**
+     * het ophalen van hoeveel het speelveld gedraait moet worden. Hierdoor is de speler
+     * zelf altijd de onderste persoon in het speelveld op zijn/haar scherm
+     * @return 
+     */
     public double getRotation()
     {
         double position = 0;
@@ -483,6 +563,9 @@ public class Client extends UnicastRemoteObject implements IClient
         position = -999;
         return position;
     }
+    /**
+     * het naar links bewegen van het batje door een speler
+     */
     public void moveLeft()
     {
         try {
@@ -497,6 +580,9 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /**
+     * het naar rechts bewegen van het batje
+     */
     public void moveRight()
     {
         try {
@@ -510,6 +596,9 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /**
+     * als je niet meer een pijltjes toets hebt ingedrukt om te bewegen.
+     */
     public void stopMove()
     {
         try {
@@ -524,7 +613,10 @@ public class Client extends UnicastRemoteObject implements IClient
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * het laten zien van de leaderbaord als je op de knop toonleaderboard drukt
+     *
+     */
     public void toonLeaderboard(){
         try{
         lobby.getRating(lobby.showGebruikersNaam());
@@ -539,7 +631,10 @@ public class Client extends UnicastRemoteObject implements IClient
         lines = newlines;
         goals = newgoals;
     }
-    
+    /**
+     * deze methode sluiten de controllers af
+     * @param controler de naam van de controller
+     */
     public void requestClose(String controler)
     {
         if (controler.equals("login"))

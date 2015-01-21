@@ -16,8 +16,13 @@ import java.util.logging.*;
  */
 public class DatabaseConnector  
 {
+    /**
+     * connectie variabelen
+     */
     protected Connection conn;
-    
+    /**
+     * constructor
+     */
     protected DatabaseConnector() 
     {
         try {
@@ -32,7 +37,13 @@ public class DatabaseConnector
             Logger.getLogger(DatabaseConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-       
+       /**
+        * hier maken wij een verbinding in de database
+        * @throws ClassNotFoundException exeptions
+        * @throws InstantiationException exeptions
+        * @throws SQLException exeptions
+        * @throws IllegalAccessException exeptions
+        */
     protected void verbindmetDatabase() throws ClassNotFoundException, InstantiationException, SQLException, IllegalAccessException
     {
         String url = "jdbc:mysql://localhost:3306/";
@@ -50,7 +61,9 @@ public class DatabaseConnector
 		System.out.println("Failed to make connection!");
 	}
     }
-    
+    /**
+     * methode voor het verbreken van de database
+     */
     protected void verbindingverbrekenmetDatabase() 
     {
         try 
@@ -64,6 +77,9 @@ public class DatabaseConnector
         }
     }
     
+    /**
+     * sluiten van de DBconnectie
+     */
     public void close()
     {
         this.verbindingverbrekenmetDatabase();

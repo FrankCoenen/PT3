@@ -18,11 +18,20 @@ import java.util.logging.Logger;
  *
  * @author Michael
  */
+
+
 public class registreerPersoonsGegevens extends DatabaseConnector implements Runnable
 {
+    /**
+     * variabelen met een logische naam
+     */
     private final String username;
     private final String wachtwoord;
     
+    /**
+ * de constructor
+ * @author hsm
+ */
     public registreerPersoonsGegevens(String username, String wachtwoord)
     {
         super();

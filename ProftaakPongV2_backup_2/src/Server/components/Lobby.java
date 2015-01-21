@@ -37,12 +37,19 @@ import shared.serializable.ChatBericht;
  */
 public class Lobby extends UnicastRemoteObject implements ILobbyLogin
 {
+    /**
+     * variabelen met een logische naam
+     */
     private static Lobby INSTANCE; 
     private ChatBox chatbox;
     private List<Persoon> personen;
     private Timer ping;
     private List<GameLobby> games;
     
+    /**
+     * constructor
+     * @throws RemoteException omdat de class unicastremote is 
+     */
     private Lobby() throws RemoteException
     {
         personen = new ArrayList<Persoon>();
@@ -71,7 +78,11 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         
         ping.schedule(tTask, 0, 1000);
     }
-    
+    /**
+     * haalt een instance van de lobby op
+     * @return een lobby
+     * @throws RemoteException omdat de class unicastremote is  
+     */
     public static Lobby getInstance() throws RemoteException
     {
         if(INSTANCE == null)
@@ -145,7 +156,10 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         }
         return true;
     }
-    
+    /**
+     * toevoegen van een persoon aan de lobby
+     * @param p de persoon die je wilt toevoegen aan de lobby
+     */
     private synchronized void addPersoon(Persoon p)
     {
         if(!personen.contains(p))
@@ -156,22 +170,28 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         updateGameLobbys();
     }
     
-    //Hier nog even naar kijken
+    //het toevoegen van een chatbericht aan de chatbox
     public synchronized void addChatBericht(ChatBericht c)
     {
        this.chatbox.addBericht(c);
     }
-    
+    // het ophalen van de chatboxen
     public RemotePublisher getChatBoxRemote()
     {
         return this.chatbox;
     }
-    
+    /**
+     * Ophalen van de chatbox
+     * @return chatbox
+     */
     public synchronized ChatBox getChatBox()
     {
         return this.chatbox;
     }
 
+    /**
+     * update de lijst van alle personen in de lobby
+     */
     public void updatePersonen()
     {
         List<String> nameList = new ArrayList();
@@ -194,7 +214,10 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
             }
         }
     }
-    
+    /**
+     * update de gamelobbys als er een nieuwe wordt lobby wordt aangemaakt wordt deze ook 
+     * toegevoegd aan de lobbylijst
+     */
     public void updateGameLobbys()
     {
         List<String> gameList = new ArrayList();
@@ -215,7 +238,11 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
             }
         }
     }
-    
+    /**
+     * methode voor het maken van een game
+     * @param p persoon die de game maakt
+     * @return  een gamelobby
+     */
     public GameLobby createGame(Persoon p)
     {
         GameLobby gl = new GameLobby(p);
@@ -223,7 +250,10 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
         updateGameLobbys();
         return gl;
     }
-    
+    /**
+     *  
+     * @return lijst met personen 
+     */
     public List<Persoon> getPersonen() {
         return personen;
     }
@@ -241,7 +271,14 @@ public class Lobby extends UnicastRemoteObject implements ILobbyLogin
     public void setGames(List<GameLobby> games) {
         this.games = games;
     }
-    public Boolean nieuweScore(String Gebruikersnaam, int Score) throws RemoteException
+    /**
+     * berekenen van de gebruikersnaam
+     * @param Gebruikersnaam de gebruikersnaam
+     * @param Score de score
+     * @return een boolean of het gelukt is
+     * @throws RemoteException omdat de class unicastremote extends.
+     */
+    public boolean nieuweScore(String Gebruikersnaam, int Score) throws RemoteException
     {
         try{
         BerekenRatingOp bro = new BerekenRatingOp(Gebruikersnaam,Score);
