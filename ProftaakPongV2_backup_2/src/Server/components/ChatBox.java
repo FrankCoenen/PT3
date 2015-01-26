@@ -23,18 +23,28 @@ import shared.serializable.ChatBericht;
  */
 public class ChatBox extends UnicastRemoteObject implements RemotePublisher
 {
+    /**
+     * variabelen met logsche naam.
+     */
     private List<ChatBericht> berichten;
     private static final int MAXBERICHTEN = 100;
     private static final int DELETE = 10;
     private BasicPublisher publisher;
     private static final String[] PROPERTYS = new String[] {"berichten"};
     
+    /**
+     * de constructor
+     * @throws RemoteException omdat het een remote class is
+     */
     public ChatBox() throws RemoteException
     {
         publisher = new BasicPublisher(PROPERTYS);
         berichten = new ArrayList<ChatBericht>();  
     }
-        
+        /**
+         * bericht versturen en toevoegen aan de lisjt
+         * @param c het chatbericht
+         */
     public synchronized void addBericht(ChatBericht c)
     {
         if(berichten.size() > MAXBERICHTEN)
@@ -45,7 +55,10 @@ public class ChatBox extends UnicastRemoteObject implements RemotePublisher
         
         publisher.inform(this, "berichten", null, berichten);
     }
-    
+    /**\
+     * opahlen van de grote van de chatbox
+     * @return 
+     */
     public int getListCount()
     {
         return berichten.size();

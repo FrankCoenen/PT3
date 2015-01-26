@@ -28,7 +28,7 @@ import shared.serializable.ChatBericht;
 public class Persoon extends UnicastRemoteObject implements ILobbySignedIn, Serializable 
 {
     /**
-     * variableen met een logische naam
+     * variabelen met een logische naam
      */
     protected transient IClient client;
     private String naam;

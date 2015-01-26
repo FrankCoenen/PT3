@@ -18,9 +18,19 @@ import shared.interfaces.IClient;
  */
 public class AI extends Speler
 {
-    
+    /**
+     * variabelen met logische naam
+     */
     private final Bal bal;
-
+    /**
+     * de constructr
+     * @param client client
+     * @param naam gebruikersnaam
+     * @param lobby de lobby
+     * @param game de game
+     * @param bal de bal
+     * @throws RemoteException omdat class remote is
+     */
     public AI(IClient client, String naam, Lobby lobby, Game game, Bal bal) throws RemoteException {
         super(client, naam, lobby, game);
         this.bal = bal;

@@ -20,6 +20,9 @@ import java.util.logging.Logger;
  */
 public class GameLobby 
 {
+    /**
+     * variabelen met logische namen
+     */
     private String name; 
     private List<Persoon> spelers;
     private int spotsLeft;
@@ -28,6 +31,10 @@ public class GameLobby
     private Game game;
     private Persoon creator;
     
+    /**
+     * constructor
+     * @param creator 
+     */
     public GameLobby(Persoon creator)
     {
         this.name = creator.getGebruikersnaam() + "'s Game";
@@ -57,6 +64,10 @@ public class GameLobby
         return spelers;
     }
 
+    /**
+     * spelers toevoegen aan een gamelobby 
+     * @param spelers 
+     */
     public void addSpelers(Persoon spelers) 
     {
         if(spotsLeft > 0 && this.hasStarted == false)
@@ -71,7 +82,10 @@ public class GameLobby
             
         }
     }
-    
+    /**
+     * spectators toevoegen aan een game
+     * @param spectators de touschouewrs
+     */
     public void addSpectators(Persoon spectators)
     {
         this.spectators.add(spectators);
@@ -108,7 +122,9 @@ public class GameLobby
     {
         return spectators;
     }
-    
+    /**
+     * update van gui als een nieuw persoon de lobby joint 
+     */
     public void updateGUI()
     {
         ArrayList<String> personen = new ArrayList<>();
@@ -151,7 +167,9 @@ public class GameLobby
             return 0;
         }
     }
-    
+    /**
+     * game op starten nadat je op de knop start game drukt
+     */
     public void startGame()
     {
         if(spelers.size() <= 3)
@@ -183,7 +201,10 @@ public class GameLobby
             this.hasStarted = true;
         }
     }
-    
+    /**
+     * verwijderen van speler uit lobby
+     * @param p persoon
+     */
     public void removeSpeler(Persoon p)
     {
         this.spelers.remove(p);

@@ -22,6 +22,9 @@ import shared.serializable.ChatBericht;
  */
 public class Game extends TimerTask
 {
+    /**
+     * variabelen met een logische naam
+     */
     private ChatBox chatbox = null;
     private Speler[] spelers;
     private ArrayList<Toeschouwer> toeschouwers;
@@ -33,6 +36,9 @@ public class Game extends TimerTask
     
     private Speelveld speelveld;
     
+    /**
+     * constructor
+     */
     public Game()
     {
         try {
@@ -50,6 +56,11 @@ public class Game extends TimerTask
         this.gameTimer = new Timer();    
     }
     
+    /**
+     * speler toevoegen aan de game
+     * @param speler de speler
+     * @return een int 
+     */
     public int addSpeler(Speler speler)
     {
         System.out.println("Game addSpeler: " + speler.getGebruikersnaam());
@@ -64,17 +75,28 @@ public class Game extends TimerTask
         }
         return -1;
     }
-    
+    /**
+     * toevoegen van een toeschouwer
+     * @param toeschouwer de toeschouwer
+     */
     public void addToeschouwer(Toeschouwer toeschouwer)
     {
         toeschouwers.add(toeschouwer);
     }
-
+    /**
+     * chatbericht verzenden in de game
+     * @param bericht en bericht zelf
+     * @throws RemoteException omdat class remote is
+     */
     public void sendChat(ChatBericht bericht) throws RemoteException 
     {
         chatbox.addBericht(bericht);
     }
-
+    /**
+     * ophalen van chatbox
+     * @return chatbox
+     * @throws RemoteException omdat class remote is 
+     */
     public RemotePublisher getChatboxRemote() throws RemoteException 
     {
         return this.chatbox;
@@ -84,7 +106,9 @@ public class Game extends TimerTask
     {
         return this.chatbox;
     }
-    
+    /**
+     * starten van de game
+     */
     public void startGame()
     {
         boolean vol = true;
@@ -109,7 +133,10 @@ public class Game extends TimerTask
             this.gameTimer.schedule(this,0,40); 
         }
     }
-    
+    /**
+     * het ophalen van de hoogste score
+     * @return een string
+     */
     public String getHoogsteScore()
     {
         Speler winner = null;
